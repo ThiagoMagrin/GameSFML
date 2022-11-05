@@ -1,7 +1,9 @@
 #include "Ente.h"
 
-Ente::Ente() :id(0) {}
+Ente::Ente():id(0), pGrafico(pGrafico->getGerenciadorGrafico()) {}
 
 Ente::~Ente() {}
 
-Ente::Ente(int id) { id = id; }
+Ente::Ente(int id):pGrafico(pGrafico->getGerenciadorGrafico()){
+    id = id;
+}

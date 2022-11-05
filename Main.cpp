@@ -1,7 +1,7 @@
 #include "Jogo.h"
 
 int main(){
+    Jogo objJogo;
 
-    Jogo jogo;
     return 0;
 }

@@ -1,12 +1,16 @@
 #pragma once
 #include <iostream>
-class Ente {
-protected:
-    int id;
+#include "Gerenciador_Grafico.h"
 
-public:
-    Ente();
-    Ente(int id);
-    ~Ente();
-    virtual void executar() = 0;
+class Ente {
+    protected:
+        int id;
+        GerenciadorGrafico* pGrafico;
+
+    public:
+        Ente();
+        Ente(int id);
+        ~Ente();
+
+        virtual void imprimir() = 0;
 };

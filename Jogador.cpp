@@ -1,38 +1,39 @@
 #include "Jogador.h"
-#define VELOCIDADE_JOGADOR 5.0f
 
 namespace Entidades {
     namespace Personagens {
-        Jogador::Jogador() { inicializar(); }
-        Jogador::Jogador(const sf::Vector2f pos, sf::Vector2f tam) :
-            Personagem(),pontuacao(0)
-        {
-            corpo.setSize(tam);
-            corpo.setPosition(pos);
-            corpo.setFillColor(sf::Color::Blue);
-            inicializar();
-            std::cout << "Jogador criado\n";
-        }
+        Jogador::Jogador() : Personagem(), pontuacao(0) {}
 
         Jogador::~Jogador() {}
 
-        void  Jogador::movimento(){
+        void Jogador::inicializar(){
+            velocidade = {5.0f, 5.0f};
+            posicao = {200.0f, 380.0f};
+
+            corpo.setSize({50.0f, 70.0f});
+            corpo.setPosition(posicao);
+            corpo.setFillColor(sf::Color::Blue);
+
+            std::cout << "Jogador inicializado\n" << std::endl;
+        }
+
+        void Jogador::movimento(){
             float posJ = getPosicao().x;
-            std::cout << posJ << std::endl;
+
             if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) && posJ > 0.0f){
                 corpo.move(-velocidade.x, 0.0f);
                 std::cout << "Left\n";
             }
-            else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) && posJ < 1100.0f - 50.0f){
+            else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) && posJ < 1200.0f - 50.0f){
                 corpo.move(velocidade.x, 0.0f);
                 std::cout << "Right\n";
             }
             else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)  || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
                 if (chao == true) {
-                    corpo.move(0.0f, -velocidade.y*10);
+                    corpo.move(0.0f, -velocidade.y*50);
                     std::cout << "Jump\n";
-                    chao = false;
-                }else std::cout << "Jogador nao esta no Chao\n";
+                }
+                else std::cout << "Jogador nao esta no Chao\n";
             }
         }
 
@@ -40,14 +41,14 @@ namespace Entidades {
                 corpo.move(0.0f, velocidade.y*5);
         }
 
-        void Jogador::atualizar() {
+        void Jogador::executar() {
             posicao = corpo.getPosition();
-            if (posicao.y >= 500) {
+            if (posicao.y >= 380.0f || ((posicao.x >= 295 && posicao.x <= 820) && posicao.y == 155)) {
                 chao = true;
             }
             else {
-                chao = false;
                 cair();
+                chao = false;
             }
 
             movimento();
@@ -60,10 +61,5 @@ namespace Entidades {
         const int Jogador::getPontuacao() const {
             return pontuacao;
         }
-        void Jogador::inicializar(){
-            velocidade = sf::Vector2f(VELOCIDADE_JOGADOR, VELOCIDADE_JOGADOR);
-        }
-        void Jogador::renderizar(){}
-        void Jogador::executar(){}
     }
 }

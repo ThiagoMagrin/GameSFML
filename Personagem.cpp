@@ -3,11 +3,7 @@
 
 namespace Entidades {
     namespace Personagens {
-        Personagem::Personagem() :
-            Entidade(), vida(0), dano(0),chao(false), morrer(true) {}
-
-        Personagem::Personagem(int v, int d) :
-            Entidade(), vida(v), dano(d) {}
+        Personagem::Personagem() : Entidade(), vida(0), dano(0), chao(false), morrer(true) {}
 
         Personagem::~Personagem() {}
 
@@ -25,11 +21,6 @@ namespace Entidades {
 
         const int  Personagem::getDano() const {
             return dano;
-        }
-
-         sf::RectangleShape Personagem::getCorpo()
-        {
-            return corpo;
         }
     }
 }

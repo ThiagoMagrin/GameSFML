@@ -1,19 +1,19 @@
-#include "Inimigo1.h"
+#include "Inimigo3.h"
 
 namespace Entidades {
     namespace Personagens {
         namespace Inimigos{
-            Inimigo1::Inimigo1() : Inimigo(nullptr) {}
-            Inimigo1::~Inimigo1() {}
+            Inimigo3::Inimigo3() : Inimigo(nullptr) {}
+            Inimigo3::~Inimigo3() {}
 
-            void Inimigo1::inicializar(Jogador* pJ) {
+            void Inimigo3::inicializar(Jogador* pJ) {
                 setJogador(pJ);
                 velocidade = sf::Vector2f(70.0f, 70.0f);
                 corpo.setSize({50.0f, 70.0f});
                 corpo.setPosition({400.0f, 380.0f});
-                corpo.setFillColor(sf::Color::Red);
+                corpo.setFillColor(sf::Color::Green);
 
-                std::cout << "Inimigo1 inicializado\n" << std::endl;
+                std::cout << "Inimigo3 inicializado\n" << std::endl;
             }
         }
     }

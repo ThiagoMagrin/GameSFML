@@ -1,29 +1,18 @@
 #pragma once
 
-#include <iostream>
-#include "Ente.h"
-#include "Entidade.h"
-#include "Jogador.h"
-#include "Inimigo.h"
-#include "Gerenciador_Grafico.h"
-#include "Jogador.h"
-#include "Inimigo1.h"
-#include "Inimigo2.h"
+#include "Fase1.h"
+#include "Fase2.h"
 
-using namespace std;
-using namespace Entidades;
-using namespace Personagens;
-using namespace Inimigo;
+using namespace Fases;
 
 class Jogo : public Ente {
     private:
-        GerenciadorGrafico* pGrafico;
-        Jogador jogador;
-        Inimigo1 inimigo1;
-        Inimigo2 inimigo2;
+        Fase1 objFase1;
+        Fase2 objFase2;
 
     public:
         Jogo();
         ~Jogo();
         void executar();
+        void imprimir();
 };

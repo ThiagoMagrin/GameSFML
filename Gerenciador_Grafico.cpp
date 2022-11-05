@@ -1,12 +1,9 @@
 #include "Gerenciador_Grafico.h"
-
-
-
 #include <iostream>
 
 #define PATH_FONT "Teste/fonts/times new roman.ttf"
 
-GerenciadorGrafico::GerenciadorGrafico() :window(new sf::RenderWindow(sf::VideoMode(1100, 600), "JOGO")), fonte(new sf::Font())
+GerenciadorGrafico::GerenciadorGrafico() :window(new sf::RenderWindow(sf::VideoMode(1200, 600), "JOGO"))
 {
     std::cout << "Gerenciador Grafico criado\n";
 }
@@ -26,12 +23,10 @@ GerenciadorGrafico* GerenciadorGrafico::getGerenciadorGrafico()
 {
 
     if (pGrafico == nullptr) {
-         pGrafico = new GerenciadorGrafico();
+        pGrafico = new GerenciadorGrafico();
     }
-    
-    
-        return pGrafico;
-    
+
+    return pGrafico;
 }
 
 sf::RenderWindow* GerenciadorGrafico::getWindow()
@@ -69,15 +64,6 @@ void GerenciadorGrafico::escreveTexto(sf::Text* texto) {
     window->draw(*texto);
 }
 
-sf::Font* GerenciadorGrafico::carregarFonte() {
-    if (!fonte) {
-        fonte = new sf::Font();
-        fonte->loadFromFile(PATH_FONT);
-        if (!fonte->loadFromFile(PATH_FONT)) {
-            std::cout << "ERRO: Nao foi possivel carregar a fonte!" << std::endl;
-            exit(1);
-        }
-    }
-    
-    return fonte;
+void GerenciadorGrafico::desenhaBackground(sf::Sprite background) {
+    window->draw(background);
 }

@@ -4,17 +4,15 @@
 
 namespace Entidades {
     namespace Personagens {
-        namespace Inimigo {
+        namespace Inimigos{
             class Inimigo2 : public Inimigo {
-            public:
-                Inimigo2();
-                Inimigo2(sf::Vector2f posInicio, Jogador* Jogador);
-                ~Inimigo2();
+                public:
+                    Inimigo2();
+                    ~Inimigo2();
 
-                void inicializar();
-                void renderizar();
-                void executar();
+                    void inicializar(Jogador* pJ);
             };
         }
     }
 }
+

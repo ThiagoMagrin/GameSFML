@@ -6,20 +6,23 @@
 
 namespace Entidades {
     namespace Personagens {
-        namespace Inimigo {
+        namespace Inimigos{
             class Inimigo : public Personagem {
                 protected:
                     Jogador* pJogador;
-                    const sf::Vector2f distanciaJogador;
 
                 public:
                     Inimigo();
-                    Inimigo(Jogador* pJogador, sf::Vector2f distanciaJogador);
+                    Inimigo(Jogador* pJogador);
                     ~Inimigo();
 
                     void setJogador(Jogador* pJ);
+
                     void perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
-                    virtual void atualizar();
+                    void movimento();
+                    void cair();
+
+                    void executar();
             };
         }
     }

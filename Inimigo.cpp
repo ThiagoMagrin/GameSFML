@@ -3,41 +3,56 @@
 
 namespace Entidades {
 	namespace Personagens {
-		namespace Inimigo {
+		namespace Inimigos{
 			Inimigo::Inimigo() :
-				Personagem(), pJogador(nullptr), distanciaJogador({ 0.f, 0.f }) {}
+				Personagem(), pJogador(nullptr) {}
 
-			Inimigo::Inimigo(Jogador* pJogador, sf::Vector2f distanciaJogador) :
-				Personagem(), pJogador(pJogador), distanciaJogador(distanciaJogador) {}
+			Inimigo::Inimigo(Jogador* pJogador) :
+				Personagem(), pJogador(pJogador){}
 
 			Inimigo::~Inimigo() {
 				pJogador = nullptr;
 			}
 
+            void Inimigo::setJogador(Jogador* pJ){
+				this->pJogador = pJ;
+			}
+
 			void Inimigo::perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo) {
-				if (posJogador.x - posInimigo.x > 0) //se esta a esquerda
-				{
+				if (posJogador.x - posInimigo.x > 0){
 					corpo.move(3, 0);
 				}
-				else
-				{
-					corpo.move(-3, 0);//se esta a direita
+				else{
+					corpo.move(-3, 0);
 				}
 			}
 
-			void Inimigo::atualizar() {
+			void Inimigo::movimento() {
 				sf::Vector2f posJogador = pJogador->getCorpo().getPosition();
 				sf::Vector2f posInimigo = corpo.getPosition();
 
-				if ((fabs(posJogador.x - posInimigo.x) <= 100) && (fabs(posJogador.y - posInimigo.y) <= 100)){
+				if ((fabs(posJogador.x - posInimigo.x) <= 100)){
 					std::cout << "Jogador entrou no raio do Inimigo\n";
 					perseguirJogador(posJogador, posInimigo);
 				}
 			}
 
-			void Inimigo::setJogador(Jogador* pJ) {
-				this->pJogador = pJ;
-			}
+            void Inimigo::cair() {
+                corpo.move(0.0f, velocidade.y*5);
+            }
+
+            void Inimigo::executar(){
+                posicao = corpo.getPosition();
+                if (posicao.y >= 380.0f || ((posicao.x >= 295 && posicao.x <= 820) && posicao.y == 155)) {
+                    chao = true;
+                }
+                else {
+                    chao = false;
+                    cair();
+                }
+
+                movimento();
+            }
 		}
 	}
 }

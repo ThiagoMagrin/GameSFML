@@ -5,10 +5,10 @@
 namespace Entidades {
     namespace Personagens {
         namespace Inimigos{
-            class Inimigo1 : public Inimigo {
+            class Inimigo3 : public Inimigo {
                 public:
-                    Inimigo1();
-                    ~Inimigo1();
+                    Inimigo3();
+                    ~Inimigo3();
 
                     void inicializar(Jogador* pJ);
             };

@@ -6,7 +6,6 @@ class GerenciadorGrafico{
     private:
         sf::RenderWindow* window;
         static GerenciadorGrafico* pGrafico;
-        sf::Font* fonte;
 
         GerenciadorGrafico();
     public:
@@ -18,6 +17,7 @@ class GerenciadorGrafico{
         void mostrarJanela();
         const bool verificaJanelaAberta() const;
         void desenhaElemento(const sf::RectangleShape corpo);
+        void desenhaBackground(const sf::Sprite background);
         void escreveTexto(sf::Text* texto);
         sf::Font* carregarFonte();
         sf::Texture* carregarTextura();
