@@ -14,7 +14,7 @@ namespace Fases{
             pInimigo1 = nullptr;
         }
 
-        if(pInimigo12){
+        if(pInimigo2){
             delete(pInimigo2);
             pInimigo2 = nullptr;
         }
