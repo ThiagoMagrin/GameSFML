@@ -32,7 +32,6 @@ namespace Entidades {
 				sf::Vector2f posInimigo = corpo.getPosition();
 
 				if ((fabs(posJogador.x - posInimigo.x) <= 100)){
-					std::cout << "Jogador entrou no raio do Inimigo\n";
 					perseguirJogador(posJogador, posInimigo);
 				}
 			}

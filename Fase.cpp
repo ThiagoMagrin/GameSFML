@@ -2,7 +2,7 @@
 #include "Jogador.h"
 
 namespace Fases{
-    Fase::Fase(): pJogador() {}
+    Fase::Fase(): pJogador(){}
     Fase::~Fase(){
         if(pJogador){
             delete(pJogador);
@@ -10,11 +10,15 @@ namespace Fases{
         }
         if(pInimigo1){
             delete(pJogador);
-            pJogador = nullptr;
+            pInimigo1 = nullptr;
         }
         if(pInimigo2){
-            delete(pJogador);
-            pJogador = nullptr;
+            delete(pInimigo2);
+            pInimigo2 = nullptr;
+        }
+        if(pInimigo3){
+            delete(pInimigo3);
+            pInimigo3 = nullptr;
         }
     }
 }

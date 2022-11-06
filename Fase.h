@@ -21,6 +21,7 @@ namespace Fases{
             Fase();
             virtual ~Fase();
 
+            virtual void inicializaObjetos() = 0;
             virtual void executar() = 0;
             virtual void imprimir() = 0;
     };

@@ -14,7 +14,7 @@ namespace Entidades {
             corpo.setPosition(posicao);
             corpo.setFillColor(sf::Color::Blue);
 
-            std::cout << "Jogador inicializado\n" << std::endl;
+            std::cout << "Jogador inicializado" << std::endl;
         }
 
         void Jogador::movimento(){
@@ -22,17 +22,17 @@ namespace Entidades {
 
             if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) && posJ > 0.0f){
                 corpo.move(-velocidade.x, 0.0f);
-                std::cout << "Left\n";
             }
+
             else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) && posJ < 1200.0f - 50.0f){
                 corpo.move(velocidade.x, 0.0f);
-                std::cout << "Right\n";
             }
+
             else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)  || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
                 if (chao == true) {
                     corpo.move(0.0f, -velocidade.y*50);
-                    std::cout << "Jump\n";
                 }
+
                 else std::cout << "Jogador nao esta no Chao\n";
             }
         }

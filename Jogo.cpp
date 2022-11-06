@@ -13,5 +13,3 @@ void Jogo::executar(){
     Fase1 objFase();
     Fase2 objFase2();
 };
-
-void Jogo::imprimir() {}

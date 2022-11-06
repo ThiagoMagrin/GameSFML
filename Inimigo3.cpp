@@ -13,7 +13,7 @@ namespace Entidades {
                 corpo.setPosition({400.0f, 380.0f});
                 corpo.setFillColor(sf::Color::Green);
 
-                std::cout << "Inimigo3 inicializado\n" << std::endl;
+                std::cout << "Inimigo3 inicializado" << std::endl;
             }
         }
     }

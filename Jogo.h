@@ -13,6 +13,7 @@ class Jogo : public Ente {
     public:
         Jogo();
         ~Jogo();
+
         void executar();
-        void imprimir();
+        void imprimir() {};
 };
