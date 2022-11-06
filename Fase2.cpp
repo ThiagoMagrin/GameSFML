@@ -9,13 +9,13 @@ namespace Fases{
         inicializaObjetos();
     }
 
-    Fase2::~Fase2(){
-    }
+    Fase2::~Fase2(){}
 
     void Fase2::inicializaObjetos(){
         pJogador->inicializar();
         pInimigo2->inicializar(pJogador);
         pInimigo3->inicializar(pJogador);
+
         executar();
     }
 

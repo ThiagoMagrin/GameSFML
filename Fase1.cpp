@@ -9,12 +9,7 @@ namespace Fases{
         inicializaObjetos();
     }
 
-    Fase1::~Fase1(){
-        if(pInimigo1){
-            delete(pInimigo1);
-            pInimigo1 = nullptr;
-        }
-    }
+    Fase1::~Fase1(){}
 
     void Fase1::inicializaObjetos(){
         pJogador->inicializar();
