@@ -9,6 +9,6 @@ Jogo::Jogo(){
 Jogo::~Jogo(){}
 
 void Jogo::executar(){
-    Fase2 objFase2();
     Fase1 objFase();
+    Fase2 objFase2();
 };
