@@ -10,6 +10,10 @@ namespace Fases{
     }
 
     Fase1::~Fase1(){
+        if(pInimigo1){
+            delete(pInimigo1);
+            pInimigo1 = nullptr;
+        }
     }
 
     void Fase1::inicializaObjetos(){

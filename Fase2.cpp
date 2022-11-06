@@ -2,6 +2,8 @@
 
 namespace Fases{
     Fase2::Fase2(): Fase(){
+        pJogador = new Jogador();
+        pInimigo2 = new Inimigo2();
         pInimigo3 = new Inimigo3();
 
         inicializaObjetos();
@@ -12,9 +14,8 @@ namespace Fases{
 
     void Fase2::inicializaObjetos(){
         pJogador->inicializar();
-        pInimigo3->inicializar(pJogador);
         pInimigo2->inicializar(pJogador);
-
+        pInimigo3->inicializar(pJogador);
         executar();
     }
 
@@ -22,38 +23,42 @@ namespace Fases{
         pJogador->executar();
         pJogador->imprimir();
 
-        pInimigo3->executar();
-        pInimigo3->imprimir();
-
         pInimigo2->executar();
         pInimigo2->imprimir();
+
+        pInimigo3->executar();
+        pInimigo3->imprimir();
     }
 
     void Fase2::executar(){
         sf::Event evento;
-        bool continuar_jogando = true;
 
         sf::Texture fundo;
         fundo.loadFromFile("images/fase_dois.png");
         sf::Sprite background(fundo);
 
-        while (pGrafico->verificaJanelaAberta() && continuar_jogando == true){
-            while (pGrafico->getWindow()->pollEvent(evento)){
+        while (pGrafico->verificaJanelaAberta())
+        {
+            while (pGrafico->getWindow()->pollEvent(evento))
+            {
                 if (evento.type == sf::Event::Closed){
-                    continuar_jogando = false;
+                    pGrafico->fecharJanela();
                 }
 
                 else if (evento.type == sf::Event::KeyPressed) {
-                    if (evento.key.code == sf::Keyboard::Escape){
-                        continuar_jogando = false;
-                    }
+                    if (evento.key.code == sf::Keyboard::Escape)
+                        pGrafico->fecharJanela();
                 }
 
                 pGrafico->limpaJanela();
+
                 pGrafico->desenhaBackground(background);
+
                 imprimir();
+
                 pGrafico->mostrarJanela();
             }
         }
+        pGrafico->fecharJanela();
     }
 }

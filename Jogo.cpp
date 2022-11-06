@@ -6,10 +6,9 @@ Jogo::Jogo(){
     executar();
 }
 
-Jogo::~Jogo(){
-}
+Jogo::~Jogo(){}
 
 void Jogo::executar(){
-    Fase1 objFase();
     Fase2 objFase2();
+    Fase1 objFase();
 };
