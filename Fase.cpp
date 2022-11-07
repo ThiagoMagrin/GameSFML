@@ -23,5 +23,20 @@ namespace Fases{
             delete(pInimigo3);
             pInimigo3 = nullptr;
         }
+
+        if(pObstaculo1){
+            delete(pObstaculo1);
+            pObstaculo1 = nullptr;
+        }
+
+        if(pObstaculo2){
+            delete(pObstaculo2);
+            pObstaculo2 = nullptr;
+        }
+
+        if(pObstaculo3){
+            delete(pObstaculo3);
+            pObstaculo3 = nullptr;
+        }
     }
 }

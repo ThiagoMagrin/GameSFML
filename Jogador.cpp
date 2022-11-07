@@ -2,7 +2,7 @@
 
 namespace Entidades {
     namespace Personagens {
-        Jogador::Jogador() : Personagem(), pontuacao(0) {}
+        Jogador::Jogador() : Personagem(), pontuacao(0){}
 
         Jogador::~Jogador() {}
 
@@ -38,12 +38,13 @@ namespace Entidades {
         }
 
         void Jogador::cair() {
-                corpo.move(0.0f, velocidade.y*5);
+            corpo.move(0.0f, velocidade.y*5);
         }
 
         void Jogador::executar() {
             posicao = corpo.getPosition();
-            if (posicao.y >= 380.0f || ((posicao.x >= 295 && posicao.x <= 820) && posicao.y == 155)) {
+
+            if ((posicao.y >= 380.0f) || ((posicao.x >= 30.0f && posicao.x <= 240.0f && posicao.y == 130.0f)) || (posicao.y == 180.0f && posicao.x >= 275.0f && posicao.x <= 800.0f) || (posicao.y == 155.0f && posicao.x >= 835.0f && posicao.x <= 1100.0f)) {
                 chao = true;
             }
             else {

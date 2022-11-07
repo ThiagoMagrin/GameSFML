@@ -5,6 +5,8 @@ namespace Fases{
         pJogador = new Jogador();
         pInimigo1 = new Inimigo1();
         pInimigo2 = new Inimigo2();
+        pObstaculo1 = new Obstaculo1();
+        pObstaculo2 = new Obstaculo2();
 
         inicializaObjetos();
     }
@@ -15,6 +17,8 @@ namespace Fases{
         pJogador->inicializar();
         pInimigo1->inicializar(pJogador);
         pInimigo2->inicializar(pJogador);
+        pObstaculo1->inicializar();
+        pObstaculo2->inicializar();
 
         executar();
     }
@@ -28,6 +32,9 @@ namespace Fases{
 
         pInimigo2->executar();
         pInimigo2->imprimir();
+
+        pObstaculo1->imprimir();
+        pObstaculo2->imprimir();
     }
 
     void Fase1::executar(){
