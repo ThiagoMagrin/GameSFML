@@ -11,6 +11,7 @@ namespace Entidades {
             sf::Vector2f posicao, velocidade;
             sf::RectangleShape corpo;
 
+            int vida, dano;
         public:
             Entidade();
             virtual ~Entidade();
@@ -24,5 +25,13 @@ namespace Entidades {
             sf::RectangleShape getCorpo() ;
 
             void imprimir();
+
+            virtual void executar();
+
+            virtual void setVida(int v) = 0;
+            virtual const int getVida() const = 0;
+
+            virtual void setDano(int d) = 0;
+            virtual const int getDano() const = 0;
         };
 }

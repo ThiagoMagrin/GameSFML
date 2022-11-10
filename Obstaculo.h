@@ -8,6 +8,13 @@ namespace Entidades{
             Obstaculo();
             virtual ~Obstaculo();
             virtual void inicializar() = 0;
+            virtual void executar() { }
+
+            virtual void setVida(int v);
+            virtual const int getVida() const;
+
+            virtual void setDano(int d);
+            virtual const int getDano() const;
         };
     }
 }

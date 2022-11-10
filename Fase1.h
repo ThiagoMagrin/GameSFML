@@ -7,6 +7,7 @@ namespace Fases{
             Fase1();
             ~Fase1();
 
+           
             void inicializaObjetos();
             void executar();
             void imprimir();

@@ -28,4 +28,8 @@ namespace Entidades {
     void Entidade::imprimir(){
         pGrafico->desenhaElemento(corpo);
     }
+	void Entidade::executar()
+	{
+
+	}
 }

@@ -1,13 +1,20 @@
 #include "Inimigo2.h"
 
+#define VIDAINIMIGO2 25
+#define DANOINIMIGO2 2
+
 namespace Entidades {
     namespace Personagens {
         namespace Inimigos{
             Inimigo2::Inimigo2() : Inimigo(nullptr) {}
             Inimigo2::~Inimigo2() {}
 
-            void Inimigo2::inicializar(Jogador* pJ) {
+            void Inimigo2::inicializar(Jogador* pJ){
                 setJogador(pJ);
+
+                setVida(VIDAINIMIGO2);
+                setDano(DANOINIMIGO2);
+
                 velocidade = sf::Vector2f(80.0f, 80.0f);
                 corpo.setSize({50.0f, 70.0f});
                 corpo.setPosition({600.0f, 380.0f});

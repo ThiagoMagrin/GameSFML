@@ -1,12 +1,21 @@
 #include "Jogador.h"
 
+#define VIDAJOGADOR 100
+#define DANOJOGADOR 5
+
 namespace Entidades {
     namespace Personagens {
-        Jogador::Jogador() : Personagem(), pontuacao(0){}
+        Jogador::Jogador() : Personagem(), pontuacao(0){
+            Ente::setId(1);
+        }
 
         Jogador::~Jogador() {}
 
         void Jogador::inicializar(){
+
+            setVida(VIDAJOGADOR);
+            setDano(DANOJOGADOR);
+
             velocidade = {5.0f, 5.0f};
             posicao = {200.0f, 380.0f};
 
@@ -33,7 +42,7 @@ namespace Entidades {
                     corpo.move(0.0f, -velocidade.y*50);
                 }
 
-                else std::cout << "Jogador nao esta no Chao\n";
+                //else std::cout << "Jogador nao esta no Chao\n";
             }
         }
 

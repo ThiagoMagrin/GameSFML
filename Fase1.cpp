@@ -8,7 +8,30 @@ namespace Fases{
         pObstaculo1 = new Obstaculo1();
         pObstaculo2 = new Obstaculo2();
 
+        pListaDinamica = new ListaEntidade();
+        pListaEstatica = new ListaEntidade();
+
+        pColisao = new GerenciadorColisao(pListaEstatica, pListaDinamica);
+
         inicializaObjetos();
+
+        Entidades::Entidade* jogador = static_cast<Entidades::Entidade*> (pJogador);
+        Entidades::Entidade* inimigo1 = static_cast<Entidades::Entidade*> (pInimigo1);
+        Entidades::Entidade* inimigo2 = static_cast<Entidades::Entidade*> (pInimigo2);
+        Entidades::Entidade* obstaculo1 = static_cast<Entidades::Entidade*> (pObstaculo1);
+        Entidades::Entidade* obstaculo2 = static_cast<Entidades::Entidade*> (pObstaculo2);
+
+        pListaDinamica->adicionarEntidade(jogador);
+        pListaDinamica->adicionarEntidade(inimigo1);
+        pListaDinamica->adicionarEntidade(inimigo2);
+
+        pListaEstatica->adicionarEntidade(obstaculo1);
+        pListaEstatica->adicionarEntidade(obstaculo2);
+
+        std::cout << "Lista personagens criada, tamanho:" << pListaDinamica->getTamanho() << std::endl;
+        std::cout << "Lista obstaculos criada, tamanho:" << pListaEstatica->getTamanho() << std::endl;
+
+        executar();
     }
 
     Fase1::~Fase1(){}
@@ -19,22 +42,11 @@ namespace Fases{
         pInimigo2->inicializar(pJogador);
         pObstaculo1->inicializar();
         pObstaculo2->inicializar();
-
-        executar();
     }
 
     void Fase1::imprimir(){
-        pJogador->executar();
-        pJogador->imprimir();
-
-        pInimigo1->executar();
-        pInimigo1->imprimir();
-
-        pInimigo2->executar();
-        pInimigo2->imprimir();
-
-        pObstaculo1->imprimir();
-        pObstaculo2->imprimir();
+        pListaDinamica->executar();
+        pListaEstatica->executar();
     }
 
     void Fase1::executar(){
@@ -59,6 +71,7 @@ namespace Fases{
 
                 pGrafico->limpaJanela();
                 pGrafico->desenhaBackground(background);
+                pColisao->executar();
                 imprimir();
                 pGrafico->mostrarJanela();
             }

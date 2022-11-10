@@ -7,11 +7,15 @@
 #include "Obstaculo1.h"
 #include "Obstaculo2.h"
 #include "Obstaculo3.h"
+#include "Gerenciador_Colisao.h"
+#include "ListaEntidades.h"
 
 using namespace Entidades;
 using namespace Personagens;
 using namespace Inimigos;
 using namespace Obstaculos;
+using namespace Listas;
+using namespace Gerenciadores;
 
 namespace Fases{
     class Fase: public Ente{
@@ -23,6 +27,10 @@ namespace Fases{
             Obstaculo1* pObstaculo1;
             Obstaculo2* pObstaculo2;
             Obstaculo3* pObstaculo3;
+            ListaEntidade* pListaDinamica;
+            ListaEntidade* pListaEstatica;
+            GerenciadorColisao* pColisao;
+
 
         public:
             Fase();

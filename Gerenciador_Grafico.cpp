@@ -3,67 +3,70 @@
 
 #define PATH_FONT "Teste/fonts/times new roman.ttf"
 
-GerenciadorGrafico::GerenciadorGrafico() :window(new sf::RenderWindow(sf::VideoMode(1200, 600), "JOGO"))
-{
-    std::cout << "Gerenciador Grafico criado\n";
-}
+namespace Gerenciadores{
 
-GerenciadorGrafico::~GerenciadorGrafico()
-{
-    if (window != nullptr)
+    GerenciadorGrafico::GerenciadorGrafico() :window(new sf::RenderWindow(sf::VideoMode(1200, 600), "JOGO"))
     {
-        delete(window);
-        window = nullptr;
-    }
-}
-
-GerenciadorGrafico* GerenciadorGrafico::pGrafico = nullptr;
-
-GerenciadorGrafico* GerenciadorGrafico::getGerenciadorGrafico()
-{
-
-    if (pGrafico == nullptr) {
-        pGrafico = new GerenciadorGrafico();
+        std::cout << "Gerenciador Grafico criado\n";
     }
 
-    return pGrafico;
-}
-
-sf::RenderWindow* GerenciadorGrafico::getWindow()
-{
-    return window;
-}
-
-void GerenciadorGrafico::limpaJanela() {
-   if (window->isOpen()) {
-        window->clear();
+    GerenciadorGrafico::~GerenciadorGrafico()
+    {
+        if (window != nullptr)
+        {
+            delete(window);
+            window = nullptr;
+        }
     }
-}
 
-void GerenciadorGrafico::fecharJanela() {
-    if (window->isOpen()) {
-        window->close();
+    GerenciadorGrafico* GerenciadorGrafico::pGrafico = nullptr;
+
+    GerenciadorGrafico* GerenciadorGrafico::getGerenciadorGrafico()
+    {
+
+        if (pGrafico == nullptr) {
+            pGrafico = new GerenciadorGrafico();
+        }
+
+        return pGrafico;
     }
-}
 
-void GerenciadorGrafico::mostrarJanela() {
-    if (window->isOpen()) {
-        window->display();
+    sf::RenderWindow* GerenciadorGrafico::getWindow()
+    {
+        return window;
     }
-}
 
-const bool GerenciadorGrafico::verificaJanelaAberta() const {
-    return window->isOpen();
-}
+    void GerenciadorGrafico::limpaJanela() {
+       if (window->isOpen()) {
+            window->clear();
+        }
+    }
 
-void GerenciadorGrafico::desenhaElemento(const sf::RectangleShape corpo) {
-    window->draw(corpo);
-}
+    void GerenciadorGrafico::fecharJanela() {
+        if (window->isOpen()) {
+            window->close();
+        }
+    }
 
-void GerenciadorGrafico::escreveTexto(sf::Text* texto) {
-    window->draw(*texto);
-}
+    void GerenciadorGrafico::mostrarJanela() {
+        if (window->isOpen()) {
+            window->display();
+        }
+    }
 
-void GerenciadorGrafico::desenhaBackground(sf::Sprite background) {
-    window->draw(background);
+    const bool GerenciadorGrafico::verificaJanelaAberta() const {
+        return window->isOpen();
+    }
+
+    void GerenciadorGrafico::desenhaElemento(const sf::RectangleShape corpo) {
+        window->draw(corpo);
+    }
+
+    void GerenciadorGrafico::escreveTexto(sf::Text* texto) {
+        window->draw(*texto);
+    }
+
+    void GerenciadorGrafico::desenhaBackground(sf::Sprite background) {
+        window->draw(background);
+    }
 }

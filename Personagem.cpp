@@ -8,7 +8,7 @@ namespace Entidades {
         Personagem::~Personagem() {}
 
         void  Personagem::setVida(int v) {
-            vida = v;
+            vida = vida + v;
         }
 
         const int  Personagem::getVida() const {

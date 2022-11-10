@@ -2,7 +2,7 @@
 #include "Jogador.h"
 
 namespace Fases{
-    Fase::Fase(): pJogador(), pInimigo1(), pInimigo2(), pInimigo3(){}
+    Fase::Fase(): pJogador(), pInimigo1(), pInimigo2(), pInimigo3(), pListaDinamica(), pListaEstatica(), pColisao(){}
     Fase::~Fase(){
         if(pJogador){
             delete(pJogador);
@@ -37,6 +37,10 @@ namespace Fases{
         if(pObstaculo3){
             delete(pObstaculo3);
             pObstaculo3 = nullptr;
+        }
+        if(pColisao){
+            delete(pColisao);
+            pColisao = nullptr;
         }
     }
 }
