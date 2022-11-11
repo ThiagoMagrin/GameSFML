@@ -3,10 +3,10 @@
 
 namespace Entidades{
     namespace Obstaculos{
-        class Obstaculo1 : public Obstaculo{
+        class Pedra : public Obstaculo{
         public:
-            Obstaculo1();
-            ~Obstaculo1();
+            Pedra();
+            ~Pedra();
 
             void inicializar();
         };

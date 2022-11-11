@@ -5,14 +5,13 @@
 namespace Entidades {
     namespace Personagens {
         namespace Inimigos{
-            class Inimigo1 : public Inimigo {
+            class Aranha : public Inimigo {
                 public:
-                    Inimigo1();
-                    ~Inimigo1();
+                    Aranha();
+                    ~Aranha();
 
                     void inicializar(Jogador* pJ);
             };
         }
     }
 }
-

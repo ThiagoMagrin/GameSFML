@@ -35,7 +35,6 @@ namespace Listas {
 
 			aux->executar();
 			aux->imprimir();
-
 		}
 	}
 }

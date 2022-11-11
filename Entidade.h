@@ -24,7 +24,7 @@ namespace Entidades {
 
             sf::RectangleShape getCorpo() ;
 
-            void imprimir();
+            virtual void imprimir();
 
             virtual void executar();
 

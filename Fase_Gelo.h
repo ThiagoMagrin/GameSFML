@@ -2,13 +2,13 @@
 #include "Fase.h"
 
 namespace Fases{
-    class Fase2 : public Fase{
+    class Fase_Gelo : public Fase{
         public:
-            Fase2();
-            ~Fase2();
+            Fase_Gelo();
+            ~Fase_Gelo();
 
             void inicializaObjetos();
             void executar();
-            void imprimir();
+            void imprimir() {};
     };
 }

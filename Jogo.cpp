@@ -1,6 +1,6 @@
 #include "Jogo.h"
-#include "Fase1.h"
-#include "Fase2.h"
+#include "Fase_Terra.h"
+#include "Fase_Gelo.h"
 
 Jogo::Jogo(){
     executar();
@@ -9,6 +9,6 @@ Jogo::Jogo(){
 Jogo::~Jogo(){}
 
 void Jogo::executar(){
-    Fase1 objFase();
-    Fase2 objFase2();
+    Fase_Terra objFase;
+    Fase_Gelo objFase_Gelo;
 };

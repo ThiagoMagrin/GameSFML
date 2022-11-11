@@ -1,12 +1,12 @@
-#include "Fase1.h"
+#include "Fase_Terra.h"
 
 namespace Fases{
-    Fase1::Fase1(): Fase(){
+    Fase_Terra::Fase_Terra(): Fase(){
         pJogador = new Jogador();
-        pInimigo1 = new Inimigo1();
-        pInimigo2 = new Inimigo2();
-        pObstaculo1 = new Obstaculo1();
-        pObstaculo2 = new Obstaculo2();
+        pEsqueleto = new Esqueleto();
+        pChefao = new Chefao();
+        pPedra = new Pedra();
+        pEspinho = new Espinho();
 
         pListaDinamica = new ListaEntidade();
         pListaEstatica = new ListaEntidade();
@@ -16,17 +16,17 @@ namespace Fases{
         inicializaObjetos();
 
         Entidades::Entidade* jogador = static_cast<Entidades::Entidade*> (pJogador);
-        Entidades::Entidade* inimigo1 = static_cast<Entidades::Entidade*> (pInimigo1);
-        Entidades::Entidade* inimigo2 = static_cast<Entidades::Entidade*> (pInimigo2);
-        Entidades::Entidade* obstaculo1 = static_cast<Entidades::Entidade*> (pObstaculo1);
-        Entidades::Entidade* obstaculo2 = static_cast<Entidades::Entidade*> (pObstaculo2);
+        Entidades::Entidade* Esqueleto = static_cast<Entidades::Entidade*> (pEsqueleto);
+        Entidades::Entidade* Chefao = static_cast<Entidades::Entidade*> (pChefao);
+        Entidades::Entidade* Pedra = static_cast<Entidades::Entidade*> (pPedra);
+        Entidades::Entidade* Espinho = static_cast<Entidades::Entidade*> (pEspinho);
 
         pListaDinamica->adicionarEntidade(jogador);
-        pListaDinamica->adicionarEntidade(inimigo1);
-        pListaDinamica->adicionarEntidade(inimigo2);
+        pListaDinamica->adicionarEntidade(Esqueleto);
+        pListaDinamica->adicionarEntidade(Chefao);
 
-        pListaEstatica->adicionarEntidade(obstaculo1);
-        pListaEstatica->adicionarEntidade(obstaculo2);
+        pListaEstatica->adicionarEntidade(Pedra);
+        pListaEstatica->adicionarEntidade(Espinho);
 
         std::cout << "Lista personagens criada, tamanho:" << pListaDinamica->getTamanho() << std::endl;
         std::cout << "Lista obstaculos criada, tamanho:" << pListaEstatica->getTamanho() << std::endl;
@@ -34,22 +34,17 @@ namespace Fases{
         executar();
     }
 
-    Fase1::~Fase1(){}
+    Fase_Terra::~Fase_Terra(){}
 
-    void Fase1::inicializaObjetos(){
+    void Fase_Terra::inicializaObjetos(){
         pJogador->inicializar();
-        pInimigo1->inicializar(pJogador);
-        pInimigo2->inicializar(pJogador);
-        pObstaculo1->inicializar();
-        pObstaculo2->inicializar();
+        pEsqueleto->inicializar(pJogador);
+        pChefao->inicializar(pJogador);
+        pPedra->inicializar();
+        pEspinho->inicializar();
     }
 
-    void Fase1::imprimir(){
-        pListaDinamica->executar();
-        pListaEstatica->executar();
-    }
-
-    void Fase1::executar(){
+    void Fase_Terra::executar(){
         sf::Event evento;
         bool continuar_jogando = true;
 
@@ -71,8 +66,9 @@ namespace Fases{
 
                 pGrafico->limpaJanela();
                 pGrafico->desenhaBackground(background);
+                pListaEstatica->executar();
+                pListaDinamica->executar();
                 pColisao->executar();
-                imprimir();
                 pGrafico->mostrarJanela();
             }
         }

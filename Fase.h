@@ -1,12 +1,12 @@
 #pragma once
 
 #include "Jogador.h"
-#include "Inimigo1.h"
-#include "Inimigo2.h"
-#include "Inimigo3.h"
-#include "Obstaculo1.h"
-#include "Obstaculo2.h"
-#include "Obstaculo3.h"
+#include "Esqueleto.h"
+#include "Chefao.h"
+#include "Aranha.h"
+#include "Pedra.h"
+#include "Espinho.h"
+#include "Tronco.h"
 #include "Gerenciador_Colisao.h"
 #include "ListaEntidades.h"
 
@@ -21,12 +21,12 @@ namespace Fases{
     class Fase: public Ente{
         protected:
             Jogador* pJogador;
-            Inimigo1* pInimigo1;
-            Inimigo2* pInimigo2;
-            Inimigo3* pInimigo3;
-            Obstaculo1* pObstaculo1;
-            Obstaculo2* pObstaculo2;
-            Obstaculo3* pObstaculo3;
+            Esqueleto* pEsqueleto;
+            Chefao* pChefao;
+            Aranha* pAranha;
+            Pedra* pPedra;
+            Espinho* pEspinho;
+            Tronco* pTronco;
             ListaEntidade* pListaDinamica;
             ListaEntidade* pListaEstatica;
             GerenciadorColisao* pColisao;

@@ -2,41 +2,49 @@
 #include "Jogador.h"
 
 namespace Fases{
-    Fase::Fase(): pJogador(), pInimigo1(), pInimigo2(), pInimigo3(), pListaDinamica(), pListaEstatica(), pColisao(){}
+    Fase::Fase(): pJogador(), pEsqueleto(), pChefao(), pAranha(), pPedra(), pEspinho(), pTronco(), pListaDinamica(), pListaEstatica(), pColisao(){}
     Fase::~Fase(){
         if(pJogador){
             delete(pJogador);
             pJogador = nullptr;
         }
 
-        if(pInimigo1){
-            delete(pInimigo1);
-            pInimigo1 = nullptr;
+        if(pEsqueleto){
+            delete(pEsqueleto);
+            pEsqueleto = nullptr;
         }
 
-        if(pInimigo2){
-            delete(pInimigo2);
-            pInimigo2 = nullptr;
+        if(pChefao){
+            delete(pChefao);
+            pChefao = nullptr;
         }
 
-        if(pInimigo3){
-            delete(pInimigo3);
-            pInimigo3 = nullptr;
+        if(pAranha){
+            delete(pAranha);
+            pAranha = nullptr;
         }
 
-        if(pObstaculo1){
-            delete(pObstaculo1);
-            pObstaculo1 = nullptr;
+        if(pPedra){
+            delete(pPedra);
+            pPedra = nullptr;
         }
 
-        if(pObstaculo2){
-            delete(pObstaculo2);
-            pObstaculo2 = nullptr;
+        if(pEspinho){
+            delete(pEspinho);
+            pEspinho = nullptr;
         }
 
-        if(pObstaculo3){
-            delete(pObstaculo3);
-            pObstaculo3 = nullptr;
+        if(pTronco){
+            delete(pTronco);
+            pTronco = nullptr;
+        }
+        if(pListaDinamica){
+            delete(pListaDinamica);
+            pListaDinamica = nullptr;
+        }
+        if(pListaEstatica){
+            delete(pListaEstatica);
+            pListaEstatica = nullptr;
         }
         if(pColisao){
             delete(pColisao);
