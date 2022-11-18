@@ -13,14 +13,18 @@ namespace Gerenciadores{
             ~GerenciadorGrafico();
             sf::RenderWindow* getWindow();
             static GerenciadorGrafico* getGerenciadorGrafico();
+            static void deletarGerenciadorGrafico();
             void limpaJanela();
             void fecharJanela();
             void mostrarJanela();
             const bool verificaJanelaAberta() const;
-            void desenhaElemento(const sf::RectangleShape corpo);
+            void desenhaElemento(const sf::Sprite corpo);
             void desenhaBackground(const sf::Sprite background);
             void escreveTexto(sf::Text* texto);
             sf::Font* carregarFonte();
-            sf::Texture* carregarTextura();
+            sf::Texture carregarTextura(const char* caminhoTextura);
     };
+
+   // GerenciadorGrafico* GerenciadorGrafico::pGrafico = 0;
 }
+

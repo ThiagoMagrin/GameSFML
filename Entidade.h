@@ -3,15 +3,18 @@
 #include <SFML/Graphics.hpp>
 #include "Ente.h"
 
-#define GRAVIDADE 998.f
+#define GRAVIDADE 9.98f
 
 namespace Entidades {
     class Entidade : public Ente {
         protected:
-            sf::Vector2f posicao, velocidade;
-            sf::RectangleShape corpo;
+            sf::Vector2f posicao, tamanho;
+            sf::Sprite corpo;
+            sf::Texture textura;
 
             int vida, dano;
+            bool atingiu, morreu;
+
         public:
             Entidade();
             virtual ~Entidade();
@@ -19,19 +22,47 @@ namespace Entidades {
             void setPosicao(sf::Vector2f pos);
             const sf::Vector2f getPosicao() const;
 
-            void setVelocidade(sf::Vector2f vel);
-            const sf::Vector2f getVelocidade() const;
+            void setTamanho(sf::Vector2f tam);
+            const sf::Vector2f getTamanho() const;
 
-            sf::RectangleShape getCorpo() ;
+            sf::Sprite getCorpo();
+            sf::Vector2f posicaoAleatoria(float inicio = 200);
 
+            void setAtingiu(bool b){
+                atingiu = b;
+            }
+
+            bool getAtingiu(){
+                return atingiu;
+            }
+
+            int getVida(){
+                return vida;
+            }
+
+            void setVida(int v) {
+                vida += v;
+            }
+
+            int getDano(){
+                return dano;
+            }
+
+            void setDano(int d){
+                dano = d;
+            }
+
+            virtual void setChao(bool b) {}
+            virtual void setDireita(bool b) {}
+            virtual void setEsquerda(bool b) {}
+
+            virtual void colisao(Entidade* outraEntidade) {}
             virtual void imprimir();
-
             virtual void executar();
 
-            virtual void setVida(int v) = 0;
-            virtual const int getVida() const = 0;
+            void cair(float intensificador);
 
-            virtual void setDano(int d) = 0;
-            virtual const int getDano() const = 0;
+            void setMorrer(bool m);
+            bool getMorrer();
         };
 }

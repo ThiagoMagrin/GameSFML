@@ -1,14 +1,26 @@
 #pragma once
 #include "Fase.h"
+#include "Esqueleto.h"
+#include "Espinho.h"
 
 namespace Fases{
     class Fase_Terra : public Fase{
-        public:
-            Fase_Terra();
-            ~Fase_Terra();
+    private:
+        Esqueleto* pEsqueleto;
+        Espinho* pEspinho;
 
-            void inicializaObjetos();
-            void executar();
-            void imprimir() {};
+    public:
+        Fase_Terra();
+        ~Fase_Terra();
+
+        void setNumEnts();
+
+        void inicializaBG();
+        void inicializaObjetos();
+        void executar();
+        void imprimir() {};
+
+        void criarEsqueletos();
+        void criarEspinhos();
     };
 }

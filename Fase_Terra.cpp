@@ -1,75 +1,113 @@
 #include "Fase_Terra.h"
 
 namespace Fases{
-    Fase_Terra::Fase_Terra(): Fase(){
-        pJogador = new Jogador();
-        pEsqueleto = new Esqueleto();
-        pChefao = new Chefao();
-        pPedra = new Pedra();
-        pEspinho = new Espinho();
-
-        pListaDinamica = new ListaEntidade();
-        pListaEstatica = new ListaEntidade();
-
-        pColisao = new GerenciadorColisao(pListaEstatica, pListaDinamica);
-
+    Fase_Terra::Fase_Terra(): Fase(), pEsqueleto(nullptr){
+        inicializaBG();
         inicializaObjetos();
-
-        Entidades::Entidade* jogador = static_cast<Entidades::Entidade*> (pJogador);
-        Entidades::Entidade* Esqueleto = static_cast<Entidades::Entidade*> (pEsqueleto);
-        Entidades::Entidade* Chefao = static_cast<Entidades::Entidade*> (pChefao);
-        Entidades::Entidade* Pedra = static_cast<Entidades::Entidade*> (pPedra);
-        Entidades::Entidade* Espinho = static_cast<Entidades::Entidade*> (pEspinho);
-
-        pListaDinamica->adicionarEntidade(jogador);
-        pListaDinamica->adicionarEntidade(Esqueleto);
-        pListaDinamica->adicionarEntidade(Chefao);
-
-        pListaEstatica->adicionarEntidade(Pedra);
-        pListaEstatica->adicionarEntidade(Espinho);
-
-        std::cout << "Lista personagens criada, tamanho:" << pListaDinamica->getTamanho() << std::endl;
-        std::cout << "Lista obstaculos criada, tamanho:" << pListaEstatica->getTamanho() << std::endl;
-
-        executar();
     }
 
-    Fase_Terra::~Fase_Terra(){}
+    Fase_Terra::~Fase_Terra(){
+        if(pJogador){
+            delete (pJogador);
+        }
+        pJogador = nullptr;
+
+        if(pPlataforma){
+            delete (pPlataforma);
+        }
+        pPlataforma = nullptr;
+
+        if(pFantasma){
+            delete (pFantasma);
+        }
+        pFantasma = nullptr;
+
+        if(pListaDinamica){
+            delete (pListaDinamica);
+        }
+        pListaDinamica = nullptr;
+
+        if(pListaEstatica){
+            delete (pListaEstatica);
+        }
+        pListaEstatica = nullptr;
+
+        if(pColisao){
+            delete (pColisao);
+        }
+        pColisao = nullptr;
+
+        if(pEsqueleto){
+            delete (pEsqueleto);
+        }
+        pEsqueleto = nullptr;
+    }
+
+    void Fase_Terra::inicializaBG(){
+        texturaBG.loadFromFile("images/fase_um.png");
+        background.setTexture(texturaBG);
+    }
 
     void Fase_Terra::inicializaObjetos(){
         pJogador->inicializar();
-        pEsqueleto->inicializar(pJogador);
-        pChefao->inicializar(pJogador);
-        pPedra->inicializar();
-        pEspinho->inicializar();
+        criarEsqueletos();
+        criarEspinhos();
+
+        std::cout << "Lista personagens criada, tamanho:" << pListaDinamica->getTamanho() << std::endl;
+        std::cout << "Lista obstaculos criada, tamanho:" << pListaEstatica->getTamanho() << std::endl;
+    }
+
+    void Fase_Terra::criarEsqueletos()
+    {
+        for (int i = 0; i < numEnt; i++) {
+            pEsqueleto = new Esqueleto();
+
+            pEsqueleto->inicializar(pJogador);
+            Entidades::Entidade* Esqueleto = static_cast<Entidades::Entidade*> (pEsqueleto);
+            pListaDinamica->adicionarEntidade(Esqueleto);
+        }
+        std::cout << "ESQUELETOS CRIADOS!\n";
+    }
+
+    void Fase_Terra::criarEspinhos(){
+        for (int i = 0; i < numEnt; i++) {
+            pEspinho = new Espinho();
+
+            pEspinho->inicializar();
+            Entidades::Entidade* Espinho = static_cast<Entidades::Entidade*> (pEspinho);
+            pListaEstatica->adicionarEntidade(Espinho);
+        }
+        std::cout << "ESPINHOS CRIADOS!\n";
     }
 
     void Fase_Terra::executar(){
         sf::Event evento;
-        bool continuar_jogando = true;
+        bool continuarJogando = true;
 
-        sf::Texture fundo;
-        fundo.loadFromFile("images/fase_um.png");
-        sf::Sprite background(fundo);
-
-        while (pGrafico->verificaJanelaAberta() && continuar_jogando == true){
-            while (pGrafico->getWindow()->pollEvent(evento)){
-                if (evento.type == sf::Event::Closed){
-                    continuar_jogando = false;
+        while (pGraf->verificaJanelaAberta() && continuarJogando){
+            while (pGraf->getWindow()->pollEvent(evento) || continuarJogando ){
+                if(pJogador->getMorrer() == true){
+                    std::cout << "JOGADOR MORREU! GAME OVER\n\n";
+                    continuarJogando = false;
                 }
 
-                else if (evento.type == sf::Event::KeyPressed) {
-                    if (evento.key.code == sf::Keyboard::Escape){
-                        continuar_jogando = false;
-                    }
+                if (pListaDinamica->getTodosMortos() == true) {
+                    std::cout << "Todos os inimigos estao mortos! Iniciando fase 2\n\n";
+                    continuarJogando = false;
                 }
 
-                pGrafico->limpaJanela();
-                pGrafico->desenhaBackground(background);
+                if (evento.type == sf::Event::Closed  ){
+                    continuarJogando = false;
+                }
+
+                pGraf->limpaJanela();
+                pGraf->desenhaBackground(background);
+                atualizaTexto();
+                pGraf->escreveTexto(&textoVida);
                 pListaEstatica->executar();
                 pListaDinamica->executar();
                 pColisao->executar();
-                pGrafico->mostrarJanela();
+                pGraf->mostrarJanela();
             }
         }
     }

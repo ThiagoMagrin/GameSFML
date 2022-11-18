@@ -1,14 +1,30 @@
 #include "Jogo.h"
 #include "Fase_Terra.h"
 #include "Fase_Gelo.h"
+#include "Gerenciador_Grafico.h"
 
-Jogo::Jogo(){
+using namespace Fases;
+
+Jogo::Jogo() : Ente(0) {
+    Ente::setGraf(GerenciadorGrafico::getGerenciadorGrafico());
+
     executar();
 }
 
-Jogo::~Jogo(){}
+Jogo::~Jogo(){
+    GerenciadorGrafico::deletarGerenciadorGrafico();
+
+    delete objFase_Terra;
+    objFase_Terra = nullptr;
+
+    delete objFase_Gelo;
+    objFase_Gelo = nullptr;
+}
 
 void Jogo::executar(){
-    Fase_Terra objFase;
-    Fase_Gelo objFase_Gelo;
+    objFase_Terra = new Fase_Terra();
+    objFase_Terra->executar();
+
+    objFase_Gelo = new Fase_Gelo();
+    objFase_Gelo->executar();
 };

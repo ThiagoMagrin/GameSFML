@@ -1,14 +1,12 @@
 #pragma once
 
 #include "Jogador.h"
-#include "Esqueleto.h"
-#include "Chefao.h"
-#include "Aranha.h"
+#include "Fantasma.h"
 #include "Pedra.h"
-#include "Espinho.h"
-#include "Tronco.h"
+
 #include "Gerenciador_Colisao.h"
 #include "ListaEntidades.h"
+#include "Plataforma.h"
 
 using namespace Entidades;
 using namespace Personagens;
@@ -21,16 +19,18 @@ namespace Fases{
     class Fase: public Ente{
         protected:
             Jogador* pJogador;
-            Esqueleto* pEsqueleto;
-            Chefao* pChefao;
-            Aranha* pAranha;
+            Plataforma* pPlataforma;
+            Fantasma* pFantasma;
             Pedra* pPedra;
-            Espinho* pEspinho;
-            Tronco* pTronco;
             ListaEntidade* pListaDinamica;
             ListaEntidade* pListaEstatica;
             GerenciadorColisao* pColisao;
+            sf::Texture texturaBG;
+            sf::Sprite background;
+            sf::Font fonte;
+            sf::Text textoVida;
 
+            int numEnt;
 
         public:
             Fase();
@@ -39,5 +39,9 @@ namespace Fases{
             virtual void inicializaObjetos() = 0;
             virtual void executar() = 0;
             virtual void imprimir() = 0;
+            void criarFantasmas();
+            void criarPedras();
+            void sorteiaNumEnt();
+            void atualizaTexto();
     };
 }

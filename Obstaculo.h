@@ -4,17 +4,16 @@
 namespace Entidades{
     namespace Obstaculos{
         class Obstaculo : public Entidade{
+        protected:
+            int vida, dano;
+            bool causaDano;
         public:
             Obstaculo();
             virtual ~Obstaculo();
             virtual void inicializar() = 0;
             virtual void executar() { }
-
-            virtual void setVida(int v);
-            virtual const int getVida() const;
-
-            virtual void setDano(int d);
-            virtual const int getDano() const;
+            void setCausaDano(bool b);
+            const bool getCausaDano();
         };
     }
 }

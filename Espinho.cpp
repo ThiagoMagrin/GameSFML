@@ -1,20 +1,26 @@
 #include "Espinho.h"
 
-#define DANO_ESPINHO 5
+#define DANO_ESPINHO 1
 
 namespace Entidades{
     namespace Obstaculos{
-        Espinho::Espinho() : Obstaculo() {}
+        Espinho::Espinho() : Obstaculo() ,forcaEspinhos(0) {}
         Espinho::~Espinho() {}
 
         void Espinho::inicializar(){
-            setDano(DANO_ESPINHO);
+            setCausaDano(true);
 
-            corpo.setSize({30.0f, 30.0f});
-            corpo.setPosition({975.0f, 193.0f});
-            corpo.setFillColor(sf::Color::Magenta);
+            forcaEspinhos = rand() % 4;
+            setDano(DANO_ESPINHO + forcaEspinhos);
 
-            std::cout << "Espinho inicializado" << std::endl;
+            tamanho = sf::Vector2f(70.0f, 15.0f);
+            setTamanho(tamanho);
+            float posicao_y = posicaoAleatoria().y + getTamanho().y;
+            posicao = sf::Vector2f(posicaoAleatoria().x, posicao_y);
+
+            textura = pGraf->carregarTextura("images/Espinho.png");
+            corpo.setTexture(textura, true);
+            corpo.setPosition(posicao);
         }
     }
 }

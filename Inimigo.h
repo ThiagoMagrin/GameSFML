@@ -11,6 +11,8 @@ namespace Entidades {
                 protected:
                     Jogador* pJogador;
 
+                    bool lado;
+
                 public:
                     Inimigo();
                     Inimigo(Jogador* pJogador);
@@ -19,9 +21,9 @@ namespace Entidades {
                     void setJogador(Jogador* pJ);
 
                     void perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
-                    void movimento();
-                    void cair();
-
+                    virtual void movimento();
+                    virtual void movimentoEspecifico();
+                    void colisao(Entidade* outraEntidade);
                     void executar();
             };
         }

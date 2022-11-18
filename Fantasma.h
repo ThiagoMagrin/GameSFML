@@ -5,17 +5,17 @@
 namespace Entidades {
     namespace Personagens {
         namespace Inimigos{
-            class Esqueleto : public Inimigo {
+            class Fantasma : public Inimigo {
             private:
-                int decomposicao;
+                bool lado;
+                int assombracao;
             public:
-                Esqueleto();
-                ~Esqueleto();
+                Fantasma();
+                ~Fantasma();
 
                 void inicializar(Jogador* pJ);
-               // void movimentoEspecifico();
+                //void movimentoEspecifico();
             };
         }
     }
 }
-

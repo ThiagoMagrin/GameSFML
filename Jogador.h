@@ -15,10 +15,10 @@ namespace Entidades{
                     const int getPontuacao() const;
 
                     void movimento();
-                    void cair();
-
                     void inicializar();
                     void executar();
+
+                    void colisao(Entidade* outraEntidade);
                 };
         }
 }

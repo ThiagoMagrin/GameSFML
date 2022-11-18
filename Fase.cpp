@@ -1,54 +1,66 @@
 #include "Fase.h"
 #include "Jogador.h"
+#include <time.h>
+#include <string>
 
 namespace Fases{
-    Fase::Fase(): pJogador(), pEsqueleto(), pChefao(), pAranha(), pPedra(), pEspinho(), pTronco(), pListaDinamica(), pListaEstatica(), pColisao(){}
-    Fase::~Fase(){
-        if(pJogador){
-            delete(pJogador);
-            pJogador = nullptr;
-        }
+    Fase::Fase() : Ente(0), pFantasma(nullptr), pPedra(nullptr), texturaBG(), background(){
+        sorteiaNumEnt();
 
-        if(pEsqueleto){
-            delete(pEsqueleto);
-            pEsqueleto = nullptr;
-        }
+        fonte.loadFromFile("times new roman.ttf");
+        textoVida.setFont(fonte);
+        //textoVida.setColor();
+        textoVida.setPosition(0, 0);
 
-        if(pChefao){
-            delete(pChefao);
-            pChefao = nullptr;
-        }
+        pJogador = new Jogador();
+        pPlataforma = new Plataforma({280.0f, 350.0f});
 
-        if(pAranha){
-            delete(pAranha);
-            pAranha = nullptr;
-        }
+        pListaDinamica = new ListaEntidade();
+        pListaEstatica = new ListaEntidade();
 
-        if(pPedra){
-            delete(pPedra);
-            pPedra = nullptr;
-        }
+        pColisao = new GerenciadorColisao(pListaEstatica, pListaDinamica);
 
-        if(pEspinho){
-            delete(pEspinho);
-            pEspinho = nullptr;
-        }
+        Entidades::Entidade* jogador = static_cast<Entidades::Entidade*> (pJogador);
+        Entidades::Entidade* plataforma = static_cast<Entidades::Entidade*> (pPlataforma);
 
-        if(pTronco){
-            delete(pTronco);
-            pTronco = nullptr;
+        pListaDinamica->adicionarEntidade(jogador);
+        pListaEstatica->adicionarEntidade(plataforma);
+
+        criarFantasmas();
+        criarPedras();
+    }
+
+    Fase::~Fase(){}
+
+    void Fase::sorteiaNumEnt(){
+        numEnt = rand()%2 + 3;
+    }
+
+    void Fase::atualizaTexto(){
+        std::string text = "Vida: ";
+        text += std::to_string(pJogador->getVida());
+        textoVida.setString(text);
+    }
+
+    void Fase::criarFantasmas(){
+        for (int i = 0; i < numEnt; i++) {
+            pFantasma = new Fantasma();
+
+            pFantasma->inicializar(pJogador);
+            Entidades::Entidade* fantasma = static_cast<Entidades::Entidade*> (pFantasma);
+            pListaDinamica->adicionarEntidade(fantasma);
         }
-        if(pListaDinamica){
-            delete(pListaDinamica);
-            pListaDinamica = nullptr;
+        std::cout << "FANTASMAS CRIADAS!\n";
+    }
+
+    void Fase::criarPedras(){
+        for (int i = 0; i < numEnt; i++) {
+            pPedra = new Pedra();
+
+            pPedra->inicializar();
+            Entidades::Entidade* Pedra = static_cast<Entidades::Entidade*> (pPedra);
+            pListaEstatica->adicionarEntidade(Pedra);
         }
-        if(pListaEstatica){
-            delete(pListaEstatica);
-            pListaEstatica = nullptr;
-        }
-        if(pColisao){
-            delete(pColisao);
-            pColisao = nullptr;
-        }
+        std::cout << "PEDRAS CRIADAS!\n";
     }
 }

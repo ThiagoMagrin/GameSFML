@@ -1,20 +1,22 @@
 #include "Tronco.h"
 
-#define DANO_TRONCO 3
+#define DANO_TRONCO 1
 
 namespace Entidades{
     namespace Obstaculos{
-        Tronco::Tronco() : Obstaculo() {}
+        Tronco::Tronco() : Obstaculo(), apodrecer(0) {}
         Tronco::~Tronco() {}
 
         void Tronco::inicializar(){
             setDano(DANO_TRONCO);
 
-            corpo.setSize({30.0f, 30.0f});
-            corpo.setPosition({975.0f, 193.0f});
-            corpo.setFillColor(sf::Color::Cyan);
+            posicao = sf::Vector2f(posicaoAleatoria());
+            tamanho = sf::Vector2f(70.0f, 70.0f);
+            setTamanho(tamanho);
 
-            std::cout << "Tronco inicializado" << std::endl;
+            textura = pGraf->carregarTextura("images/tronco.png");
+            corpo.setTexture(textura, true);
+            corpo.setPosition(posicao);
         }
     }
 }

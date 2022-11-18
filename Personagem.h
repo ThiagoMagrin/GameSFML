@@ -7,17 +7,25 @@ namespace Entidades{
     namespace Personagens{
         class Personagem : public Entidade {
         protected:
-            int vida, dano;
-            bool chao, morrer;
+            sf::Vector2f velocidade;
+            bool chao, direita, esquerda;
+
         public:
             Personagem();
             ~Personagem();
 
-            void setVida(int v);
-            const int getVida() const;
+            void setVelocidade(sf::Vector2f vel);
+            const sf::Vector2f getVelocidade() const;
 
-            void setDano(int d);
-            const int getDano() const;
+            void setChao(bool b);
+            void setDireita(bool b);
+            void setEsquerda(bool b);
+
+            void pular(float pulo);
+
+            virtual void colisao(Entidade* outraEntidade, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f)) {}
+            virtual void executar() = 0;
+
         };
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Listas {
 	ListaEntidade::ListaEntidade() :
-		objListaEntidade() { }
+		objListaEntidade() , todosMortos(false){ }
 
 	ListaEntidade::~ListaEntidade() { }
 
@@ -27,14 +27,37 @@ namespace Listas {
 	}
 
 	void ListaEntidade::executar() {
-
 		Entidades::Entidade* aux = nullptr;
 		int tam = objListaEntidade.getTamanho();
+
 		for (int i = 0; i < tam; i++) {
 			aux = objListaEntidade.operator[](i);
 
 			aux->executar();
 			aux->imprimir();
 		}
+
+		verificaMortos();
 	}
+
+	bool ListaEntidade::getTodosMortos(){
+        return todosMortos;
+	}
+
+    void ListaEntidade::verificaMortos(){
+        Entidades::Entidade* aux = nullptr;
+		int tam = objListaEntidade.getTamanho();
+
+		for (int i = 0; i < tam; i++) {
+			aux = objListaEntidade.operator[](i);
+            if(aux->getMorrer() == true){
+                objListaEntidade.remover(i);
+                break;
+            }
+		}
+
+		if(objListaEntidade.getTamanho() <= 1){
+            todosMortos = true;
+		}
+    }
 }

@@ -1,26 +1,31 @@
 #include "Personagem.h"
 #include <SFML/Graphics.hpp>
-
+#include <cmath>
 namespace Entidades {
+
     namespace Personagens {
-        Personagem::Personagem() : Entidade(), vida(0), dano(0), chao(false), morrer(true) {}
+        Personagem::Personagem() : Entidade(), chao(true), direita(true), esquerda(true) {}
 
         Personagem::~Personagem() {}
 
-        void  Personagem::setVida(int v) {
-            vida = vida + v;
+        void Personagem::setChao(bool b){
+            chao = b;
         }
 
-        const int  Personagem::getVida() const {
-            return vida;
+        void Personagem::setDireita(bool b){
+            direita = b;
         }
 
-        void  Personagem::setDano(int d) {
-            dano = d;
+        void Personagem::setEsquerda(bool b){
+            esquerda = b;
         }
 
-        const int  Personagem::getDano() const {
-            return dano;
+        void Personagem::pular(float pulo)
+        {
+            // Equacao de Torricelli
+            //v^2 = G*H
+            pulo = sqrt(2.0f * GRAVIDADE * pulo);
+            corpo.move(0.0f, -pulo * 10);
         }
     }
 }

@@ -2,23 +2,18 @@
 
 namespace Entidades {
 	namespace Obstaculos {
-        Obstaculo::Obstaculo() : Entidade(){}
+        Obstaculo::Obstaculo() : Entidade(), vida(0), dano(0), causaDano(false) {
+            setID(3);
+        }
+
         Obstaculo::~Obstaculo(){}
-
-        void Obstaculo::setVida(int v){
-            vida = v;
+        void Obstaculo::setCausaDano(bool b)
+        {
+            causaDano = b;
         }
-
-        const int Obstaculo::getVida() const{
-            return vida;
-        }
-
-        void Obstaculo::setDano(int d){
-            dano = d;
-        }
-
-        const int Obstaculo::getDano() const{
-            return dano;
+        const bool Obstaculo::getCausaDano()
+        {
+            return causaDano;
         }
 	}
 }

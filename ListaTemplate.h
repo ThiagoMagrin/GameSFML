@@ -50,7 +50,7 @@ namespace Listas{
 
 	template<class TIPO>
 	Lista<TIPO>::~Lista() {
-		if (pInicio != nullptr) {
+		/*if (pInicio != nullptr) {
 			Elemento<TIPO>* pAux1 = pInicio;
 			Elemento<TIPO>* pAux2 = nullptr;
 			TIPO* pAux3 = pAux1->getTipo();
@@ -64,7 +64,7 @@ namespace Listas{
 			pInicio = nullptr;
 			pUltimo = nullptr;
 			tamanhoLista = 0;
-		}
+		}*/
 	}
 
 	template<class TIPO>

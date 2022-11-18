@@ -5,7 +5,7 @@
 
 namespace Gerenciadores{
 
-    GerenciadorGrafico::GerenciadorGrafico() :window(new sf::RenderWindow(sf::VideoMode(1200, 600), "JOGO"))
+    GerenciadorGrafico::GerenciadorGrafico() :window(new sf::RenderWindow(sf::VideoMode(1200, 674), "JOGO"))
     {
         std::cout << "Gerenciador Grafico criado\n";
     }
@@ -17,17 +17,26 @@ namespace Gerenciadores{
             delete(window);
             window = nullptr;
         }
+
     }
 
     GerenciadorGrafico* GerenciadorGrafico::pGrafico = nullptr;
 
+    void GerenciadorGrafico::deletarGerenciadorGrafico() {
+        if(pGrafico){
+            std::cout << "Gerenciador grafico deletado!" << std::endl;
+            delete pGrafico;
+        }
+        else{
+            std::cout << "Gerenciador grafico nao inicializado!" << std::endl;
+        }
+    }
+
     GerenciadorGrafico* GerenciadorGrafico::getGerenciadorGrafico()
     {
-
         if (pGrafico == nullptr) {
             pGrafico = new GerenciadorGrafico();
         }
-
         return pGrafico;
     }
 
@@ -58,7 +67,7 @@ namespace Gerenciadores{
         return window->isOpen();
     }
 
-    void GerenciadorGrafico::desenhaElemento(const sf::RectangleShape corpo) {
+    void GerenciadorGrafico::desenhaElemento(const sf::Sprite corpo) {
         window->draw(corpo);
     }
 
@@ -68,5 +77,12 @@ namespace Gerenciadores{
 
     void GerenciadorGrafico::desenhaBackground(sf::Sprite background) {
         window->draw(background);
+    }
+
+    sf::Texture GerenciadorGrafico::carregarTextura(const char* caminhoTextura){
+        sf::Texture textura;
+        textura.loadFromFile(caminhoTextura);
+
+        return textura;
     }
 }
