@@ -95,32 +95,33 @@ namespace Fases{
         bool continuarJogando = true;
 
         while (pGraf->verificaJanelaAberta()){
-            while (pGraf->getWindow()->pollEvent(evento) || continuarJogando == true){
-                if(pJogador->getMorrer() == true){
-                    std::cout << "JOGADOR MORREU! GAME OVER";
-                    pGraf->fecharJanela();
-                    continuarJogando = false;
-                }
+            while (pGraf->getWindow()->pollEvent(evento) || continuarJogando == true) {
+                    if (pJogador->getMorrer() == true) {
+                        std::cout << "JOGADOR MORREU! GAME OVER";
+                        pGraf->fecharJanela();
+                        continuarJogando = false;
+                    }
 
-                if (pListaDinamica->getTodosMortos() == true) {
-                    std::cout << "Todos os inimigos estao mortos! Iniciando fase 2";
-                    continuarJogando = false;
-                }
+                    if (pListaDinamica->getTodosMortos() == true) {
+                        std::cout << "Todos os inimigos estao mortos! Iniciando fase 2";
+                        continuarJogando = false;
+                    }
 
-                if (evento.type == sf::Event::Closed){
-                    pGraf->fecharJanela();
-                    continuarJogando = false;
-                }
+                    if (evento.type == sf::Event::Closed) {
+                        pGraf->fecharJanela();
+                        continuarJogando = false;
+                    }
 
-                pGraf->limpaJanela();
-                pGraf->desenhaBackground(background);
-                atualizaTexto();
-                pGraf->escreveTexto(&textoVida);
-                pListaEstatica->executar();
-                pListaDinamica->executar();
-                pColisao->executar();
-                pGraf->mostrarJanela();
-            }
+                    pGraf->limpaJanela();
+                    pGraf->desenhaBackground(background);
+                    atualizaTexto();
+                    pGraf->escreveTexto(&textoVida);
+                    pListaEstatica->executar();
+                    pListaDinamica->executar();
+                    pColisao->executar();
+                    pGraf->mostrarJanela();
+                }
+            
         }
     }
 }

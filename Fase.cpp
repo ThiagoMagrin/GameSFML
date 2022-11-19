@@ -4,7 +4,7 @@
 #include <string>
 
 namespace Fases{
-    Fase::Fase() : Ente(0), pFantasma(nullptr), pPedra(nullptr), texturaBG(), background(){
+    Fase::Fase() : Ente(0), pFantasma(nullptr), pPedra(nullptr), texturaBG(), background(), pausado(false) {
         sorteiaNumEnt();
 
         fonte.loadFromFile("times new roman.ttf");

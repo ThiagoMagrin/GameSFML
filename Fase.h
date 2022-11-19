@@ -32,6 +32,8 @@ namespace Fases{
 
             int numEnt;
 
+            bool pausado;
+
         public:
             Fase();
             virtual ~Fase();
