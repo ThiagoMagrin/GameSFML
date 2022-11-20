@@ -26,8 +26,7 @@ void Jogo::executarFase1()
     objFase_Terra = new Fase_Terra();
     objFase_Terra->executar();
 
-    objFase_Gelo = new Fase_Gelo();
-    objFase_Gelo->executar();
+    executarFase2();
 }
 void Jogo::executarFase2()
 {
