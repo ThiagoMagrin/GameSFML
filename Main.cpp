@@ -3,12 +3,12 @@
 #include "Menu.h"
 
 int main() {
-    //Jogo objJogo;
+    Jogo objJogo;
 
-    Menu* menu = new Menu();
+    /*Menu* menu = new Menu();
     menu->run_menu();
     delete menu;
-    menu = nullptr;
+    menu = nullptr;*/
 
     return 0;
 

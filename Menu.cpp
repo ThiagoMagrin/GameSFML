@@ -1,12 +1,12 @@
 #include "Menu.h"
 
 Menu::Menu() {
-    Ente::setGraf(GerenciadorGrafico::getGerenciadorGrafico());
+   // Ente::setGraf(GerenciadorGrafico::getGerenciadorGrafico());
   
     font = new sf::Font();
     image = new sf::Texture();
     bg = new sf::Sprite();
-    obgJogo = new Jogo;
+    //obgJogo = new Jogo;
 
     inicializar();
 }
@@ -16,8 +16,8 @@ Menu::~Menu() {
     delete font;
     delete image;
     delete bg;
-    delete obgJogo;
-    GerenciadorGrafico::deletarGerenciadorGrafico();
+   // delete obgJogo;
+    //GerenciadorGrafico::deletarGerenciadorGrafico();
 }
 
 void Menu::inicializar() {
@@ -87,21 +87,31 @@ void Menu::selecao() {
             switch (pos)
             {
             case 1 :
-                obgJogo->executarFase1();
+                setOpcao(1);
                 break;
             case 2:
-                obgJogo->executarFase2();
+                setOpcao(2);
                 break;
             case 3:
+                setOpcao(3);
                 std::cout << "MOSTAR RANKING\n";
                 break;
             case 4:
-                pGraf->fecharJanela();
+                setOpcao(4);
                 break;
             }
             
         }
     }
+}
+
+const int Menu::getOpcao(int op)
+{
+    return opcao;
+}
+void Menu::setOpcao(int op)
+{
+    opcao = op;
 }
 
 void Menu::desenhar() {
@@ -113,11 +123,12 @@ void Menu::desenhar() {
     pGraf->mostrarJanela();
 }
 
+
+
 void Menu::run_menu() {
 
-    while (pGraf->verificaJanelaAberta())
-    {
+   
         selecao();
         desenhar();
-    }
+    
 }
