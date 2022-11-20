@@ -15,6 +15,9 @@ class Jogo : public Ente {
         Jogo();
         ~Jogo();
 
-        void executar();
+      //  void executar();
+        void executarFase1();
+        void executarFase2();
+
         void imprimir() {}
 };
