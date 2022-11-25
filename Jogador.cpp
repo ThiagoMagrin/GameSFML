@@ -1,24 +1,24 @@
 #include "Jogador.h"
 
-#define VIDAJOGADOR 5000
-#define DANOJOGADOR 3
-#define VELJOGADOR 0.2f
+#define VIDAJOGADOR 3000
+#define DANOJOGADOR 5
+#define VELJOGADOR 1.2f
 #define PULOJOGADOR 70.0f
 
 namespace Entidades {
     namespace Personagens {
-        Jogador::Jogador() : Personagem(), pontuacao(0){
+        Jogador::Jogador() : Personagem(), pontuacao(0), segundoJogador(false){
             Ente::setID(1);
         }
 
         Jogador::~Jogador() {}
 
-        void Jogador::inicializar(){
+        void Jogador::inicializar(sf::Vector2f pos){
             setVida(VIDAJOGADOR);
             setDano(DANOJOGADOR);
 
             velocidade = {VELJOGADOR,VELJOGADOR};
-            posicao = {50.0f, 490.0f};
+            posicao = pos;
 
             textura = pGraf->carregarTextura("images/Jogador.png");
             corpo.setTexture(textura, true);
@@ -30,18 +30,57 @@ namespace Entidades {
         void Jogador::movimento(){
             float posJ = getPosicao().x;
 
-            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) && esquerda == true && posJ > 0.0f){
-                corpo.move(-velocidade.x, 0.0f);
+            if(segundoJogador == false){
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && posJ > 0.0f){
+                    if(esquerda == true){
+                        corpo.move(-velocidade.x, 0.0f);
+                    }
+                    else{
+                        esquerda = true;
+                    }
+                }
+
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && posJ < 1200.0f - 50.0f){
+                    if(direita == true){
+                        corpo.move(velocidade.x, 0.0f);
+                    }
+                    else{
+                        direita = true;
+                    }
+                }
+
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+                    if(chao == true){
+                        pular(PULOJOGADOR);
+                        chao = false;
+                    }
+                }
             }
 
-            else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) && direita == true && posJ < 1200.0f - 50.0f){
-                corpo.move(velocidade.x, 0.0f);
-            }
+            else{
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && posJ > 0.0f){
+                    if(esquerda == true){
+                        corpo.move(-velocidade.x, 0.0f);
+                    }
+                    else{
+                        esquerda = true;
+                    }
+                }
 
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)  || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-                if(chao == true){
-                    pular(PULOJOGADOR);
-                    chao = false;
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && posJ < 1200.0f - 50.0f){
+                    if(direita == true){
+                        corpo.move(velocidade.x, 0.0f);
+                    }
+                    else{
+                        direita = true;
+                    }
+                }
+
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+                    if(chao == true){
+                        pular(PULOJOGADOR);
+                        chao = false;
+                    }
                 }
             }
 
@@ -59,42 +98,39 @@ namespace Entidades {
             movimento();
         }
 
-        void Jogador::colisao(Entidade* outraEntidade){
+        void Jogador::tratarColisao(Entidade* outraEntidade){
             switch(outraEntidade->getId()){
                 case 1:{
                     //std::cout << "Colisao jogador e jogador" << std::endl;
                     break;
                 }
                 case 2:{
-                    outraEntidade->setVida(-DANOJOGADOR);
-                    setVida(-outraEntidade->getDano());
-                    std::cout << "Combate Jogador x Inimigo - Vida Jogador: " << getVida() << " Vida Inimigo: " << outraEntidade->getVida() << std::endl;
-
-                    if(getVida() <= 0){
-                        setMorrer(true);
-                    }
-
                     if(outraEntidade->getVida() <= 0){
                         outraEntidade->setMorrer(true);
                     }
-
-                    if(outraEntidade->getPosicao().x > posicao.x){
-                        direita = false;
-                        outraEntidade->setEsquerda(false);
-                    }
                     else{
-                        esquerda = false;
-                        outraEntidade->setDireita(false);
+                        outraEntidade->setVida(-DANOJOGADOR);
+                        setVida(-outraEntidade->getDano());
+                        setPontuacao(1);
                     }
 
                     break;
                 }
                 case 3:{
                     setVida(-outraEntidade->getDano());
-                    std::cout << "Colidiu com obstaculo - Vida Jogador: " << getVida() << std::endl;
 
-                    if(getVida() <= 0){
-                        setMorrer(true);
+                    if(outraEntidade->getPosicao().x > posicao.x){
+                        setDireita(false);
+                    }
+
+                    else{
+                        setEsquerda(false);
+                    }
+
+                    if(outraEntidade->getPosicao().y - 110 > posicao.y){
+                        setDireita(true);
+                        setEsquerda(true);
+                        setChao(true);
                     }
 
                     break;
@@ -107,11 +143,14 @@ namespace Entidades {
                 }
                 case 5:{
                     setVida(-outraEntidade->getDano());
-                    std::cout << "Vida Jogador: " << getVida() << std::endl;
                     outraEntidade->setAtingiu(true);
 
                     break;
                 }
+
+            }
+            if(getVida() <= 0){
+                setMorrer(true);
             }
         }
 

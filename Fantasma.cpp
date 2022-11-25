@@ -6,11 +6,11 @@
 namespace Entidades {
     namespace Personagens {
         namespace Inimigos{
-            Fantasma::Fantasma() : Inimigo(nullptr), assombracao(0), lado(false) {}
+            Fantasma::Fantasma() : Inimigo(nullptr), assombracao(0){}
             Fantasma::~Fantasma() {}
 
-            void Fantasma::inicializar(Jogador* pJ) {
-                setJogador(pJ);
+            void Fantasma::inicializar(Jogador* pJ, Jogador* pJ2) {
+                setJogador(pJ, pJ2);
 
                 assombracao = 1 + rand() % 4;
                 setVida(VIDA_FANTASMA);
@@ -19,7 +19,7 @@ namespace Entidades {
 
                // posicao = sf::Vector2f(700.0f, 530.0f);
                // posicao = sf::Vector2f({ 280.0f, 280.0f });
-                posicao = sf::Vector2f(posicaoAleatoria());
+                posicao = sf::Vector2f(posicaoAleatoria(1));
                 velocidade = sf::Vector2f(70.0f, 70.0f);
 
                 textura = pGraf->carregarTextura("images/Fantasma.png");

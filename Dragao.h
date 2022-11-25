@@ -14,9 +14,13 @@ namespace Entidades {
                 Dragao();
                 ~Dragao();
 
-                void inicializar(Jogador* pJ, BolaDeFogo* pBola);
+                void configuraBolaDeFogo(sf::Vector2f posJogador, sf::Vector2f posInimigo);
+                void inicializar(Jogador* pJ, Jogador* pJ2, BolaDeFogo* pBola);
+                void perseguirJogador();
                 void perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
                 void movimento();
+
+                BolaDeFogo* getProjetil();
             };
         }
     }

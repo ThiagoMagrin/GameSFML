@@ -12,7 +12,7 @@ namespace Entidades {
                 Esqueleto();
                 ~Esqueleto();
 
-                void inicializar(Jogador* pJ);
+                void inicializar(Jogador* pJ, Jogador* pJ2);
                // void movimentoEspecifico();
             };
         }

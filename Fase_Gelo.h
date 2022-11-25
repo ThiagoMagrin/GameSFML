@@ -7,16 +7,19 @@ namespace Fases{
     class Fase_Gelo : public Fase{
         private:
             Dragao* pDragao;
-            Tronco* pTronco;
             BolaDeFogo* pBolaDeFogo;
+            Tronco* pTronco;
 
         public:
-            Fase_Gelo();
+            Fase_Gelo(bool doisJogadores = false);
+
             ~Fase_Gelo();
 
+            void inicializaSegundoJogador();
             void inicializaObjetos();
             void inicializaBG();
-            void executar();
+            void executar(int J1pts ,int J2pts );
+            void executar(){}
             void imprimir() {};
 
             void criarDragoes();

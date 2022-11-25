@@ -15,8 +15,8 @@ namespace Entidades{
 
             tamanho = sf::Vector2f(70.0f, 15.0f);
             setTamanho(tamanho);
-            float posicao_y = posicaoAleatoria().y + getTamanho().y;
-            posicao = sf::Vector2f(posicaoAleatoria().x, posicao_y);
+            float posicao_y = posicaoAleatoria(0).y + getTamanho().y;
+            posicao = sf::Vector2f(posicaoAleatoria(0).x, posicao_y);
 
             textura = pGraf->carregarTextura("images/Espinho.png");
             corpo.setTexture(textura, true);

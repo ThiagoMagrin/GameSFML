@@ -1,5 +1,3 @@
-
-
 #pragma once
 
 //baseado no tutorial: https://www.youtube.com/watch?v=h8-Q4eu3Qt4
@@ -11,10 +9,10 @@
 #include <iostream>
 
 class Menu : public Ente {
-    
   private:
         int pos;
-        bool pressed, theselect;
+    //    bool pressed;
+     //   bool theselect;
         sf::Font* font;
         sf::Texture* image;
         sf::Sprite* bg;
@@ -27,17 +25,24 @@ class Menu : public Ente {
         //Jogo obgJogo;
 
 
-        void inicializar();
-        void selecao();
-        void desenhar();
+        
 
         int opcao;
 
     public:
         Menu();
         ~Menu();
+
+        void inicializar();
+        void selecao();
+        void desenhar();
+
         void run_menu();
         void setOpcao(int op);
         const int getOpcao(int op = -1);
-    
+        void limpar();
+
+        void mostrarRanking();
+
+
 };

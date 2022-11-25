@@ -1,6 +1,6 @@
 #include "Tronco.h"
 
-#define DANO_TRONCO 1
+#define DANO_TRONCO 0
 
 namespace Entidades{
     namespace Obstaculos{
@@ -10,7 +10,7 @@ namespace Entidades{
         void Tronco::inicializar(){
             setDano(DANO_TRONCO);
 
-            posicao = sf::Vector2f(posicaoAleatoria());
+            posicao = sf::Vector2f(posicaoAleatoria(0).x, posicaoAleatoria(0).y - 30);
             tamanho = sf::Vector2f(70.0f, 70.0f);
             setTamanho(tamanho);
 

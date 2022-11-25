@@ -4,43 +4,93 @@
 namespace Entidades {
 	namespace Personagens {
 		namespace Inimigos{
-			Inimigo::Inimigo() :
-				Personagem(), pJogador(nullptr) {
-                    setID(2);
+			Inimigo::Inimigo() : Personagem(), pJogador(nullptr), pJogador2(nullptr){
+                    setID(0);
 				}
 
 			Inimigo::Inimigo(Jogador* pJogador) :
-				Personagem(), pJogador(pJogador), lado(false){
+				Personagem(), pJogador(pJogador), pJogador2(nullptr){
+                    setID(2);
+				}
+
+            Inimigo::Inimigo(Jogador* pJogador, Jogador* pJogador2) :
+				Personagem(), pJogador(pJogador), pJogador2(pJogador2){
                     setID(2);
 				}
 
 			Inimigo::~Inimigo() {
 				pJogador = nullptr;
+				pJogador2 = nullptr;
 			}
 
-            void Inimigo::setJogador(Jogador* pJ){
+            void Inimigo::setJogador(Jogador* pJ, Jogador* pJ2){
 				pJogador = pJ;
+                pJogador2 = pJ2;
+			}
+
+			void Inimigo::perseguirJogador(){
+                perseguirJogador(pJogador->getPosicao(), getPosicao());
+                if(pJogador2 != nullptr){
+                   // perseguirJogador(pJogador2->getPosicao(), getPosicao());
+                }
 			}
 
 			void Inimigo::perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo) {
-				if ((posJogador.x - posInimigo.x > 0 ) && direita == true ){
-					corpo.move(0.08, 0);
+				if ((posJogador.x - posInimigo.x > 0)){
+                    if(direita == true){
+                        corpo.move(0.05, 0);
+                    }
+                    else{
+                        direita = true;
+                    }
 				}
-				else if(esquerda == true){
-					corpo.move(-0.08, 0);
+				else{
+                    if(esquerda == true){
+                        corpo.move(-0.05, 0);
+                    }
+                    else{
+                        esquerda = true;
+                    }
 				}
 			}
 
 			void Inimigo::movimento() {
+
 				sf::Vector2f posJogador = pJogador->getCorpo().getPosition();
+                sf::Vector2f posJogador2;
+                if (pJogador2 == nullptr) {
+
+                     posJogador2 = { 0,0 };
+                }
+                else {  posJogador2 = pJogador2->getCorpo().getPosition(); }
+
 				sf::Vector2f posInimigo = corpo.getPosition();
 
 				if (chao == false) {
 					cair(0.07f);
 				}
 
+				if(posInimigo.x + 100 > 1200){
+                    direita = false;
+				}
+
+				if(posInimigo.x <= 0){
+                    esquerda = false;
+				}
+
 				if ((fabs(posJogador.x - posInimigo.x) <= 500) && (fabs(posJogador.y - posInimigo.y) <= 100)){
-					perseguirJogador(posJogador, posInimigo);
+					perseguirJogador();
+
+				}
+                else{
+					movimentoEspecifico();
+				}
+
+                if (pJogador2 != nullptr) {
+
+                    if ((fabs(posJogador2.x - posInimigo.x) <= 500) && (fabs(posJogador2.y - posInimigo.y) <= 100)){
+                        perseguirJogador();
+                    }
 				}
 				else {
 					movimentoEspecifico();
@@ -49,22 +99,64 @@ namespace Entidades {
 
 			void Inimigo::movimentoEspecifico()
 			{
-				float posI = getPosicao().x;
+				int aleatorio = rand() % 2;
 
-				int aleatorio = rand() % 11;//0-10
+				if (aleatorio == 0 && direita == true){
+                    corpo.move(0.1f, 0);
+				}
+				else{
+                    direita = true;
+				}
 
-				if (aleatorio > 5 && posI < 1200.0f) {
-					corpo.move(1.f, 0);
-				}
-				else if (posI > 0.0f)
-				{
-					corpo.move(-1.f, 0);
-				}
+                if(aleatorio == 1 && esquerda == true){
+                    corpo.move(-0.1f, 0);
+                }
+                else{
+                    esquerda = true;
+                }
 			}
 
-			void Inimigo::colisao(Entidade* outraEntidade)
+			void Inimigo::tratarColisao(Entidade* outraEntidade)
 			{
-				if (outraEntidade->getId() == 4) {
+			    if(outraEntidade->getId() == 2){
+                    if(outraEntidade->getPosicao().x > posicao.x){
+                        setDireita(false);
+                    }
+                    else{
+                        setDireita(true);
+                    }
+
+                    if(outraEntidade->getPosicao().x < posicao.x){
+                        setEsquerda(false);
+                    }
+                    else{
+                        setEsquerda(true);
+                    }
+
+                    if(outraEntidade->getPosicao().y - 110 > posicao.y){
+                        setDireita(true);
+                        setEsquerda(true);
+                        setChao(true);
+                    }
+			    }
+
+				else if(outraEntidade->getId() == 3){
+                    if(outraEntidade->getPosicao().x > posicao.x){
+                        setDireita(false);
+                    }
+
+                    else{
+                        setEsquerda(false);
+                    }
+
+                    if(outraEntidade->getPosicao().y - 110 > posicao.y){
+                        setDireita(true);
+                        setEsquerda(true);
+                        setChao(true);
+                    }
+				}
+
+                if (outraEntidade->getId() == 4) {
 					if (outraEntidade->getPosicao().y - 110 > posicao.y) {
 						chao = true;
 					}

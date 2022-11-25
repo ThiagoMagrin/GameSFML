@@ -73,6 +73,7 @@ namespace Gerenciadores{
 
     void GerenciadorGrafico::escreveTexto(sf::Text* texto) {
         window->draw(*texto);
+
     }
 
     void GerenciadorGrafico::desenhaBackground(sf::Sprite background) {

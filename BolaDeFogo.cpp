@@ -2,7 +2,7 @@
 #include "Dragao.h"
 
 #define VELBOLA 0.3f
-#define DANOBOLA 50.0f
+#define DANOBOLA 30.0f
 
 namespace Entidades {
 	BolaDeFogo::BolaDeFogo(): lancado(false)
@@ -11,7 +11,6 @@ namespace Entidades {
 	}
 
 	Entidades::BolaDeFogo::~BolaDeFogo(){}
-
 
 	void BolaDeFogo::inicializar()
 	{
@@ -39,7 +38,6 @@ namespace Entidades {
 
 	void BolaDeFogo::lancar(bool esquerdaB)
 	{
-		
 		if(corpo.getPosition().x >= 0 && corpo.getPosition().x <= 1300) {
 			if (esquerdaB == true){
 				corpo.move(VELBOLA, 0);

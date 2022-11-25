@@ -10,20 +10,21 @@ namespace Entidades {
             class Inimigo : public Personagem {
                 protected:
                     Jogador* pJogador;
-
-                    bool lado;
+                    Jogador* pJogador2;
 
                 public:
                     Inimigo();
                     Inimigo(Jogador* pJogador);
+                    Inimigo(Jogador* pJogador, Jogador* pJogador2);
                     ~Inimigo();
 
-                    void setJogador(Jogador* pJ);
+                    void setJogador(Jogador* pJ, Jogador* pJ2);
 
+                    void perseguirJogador();
                     void perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
                     virtual void movimento();
                     virtual void movimentoEspecifico();
-                    void colisao(Entidade* outraEntidade);
+                    void tratarColisao(Entidade* outraEntidade);
                     void executar();
             };
         }

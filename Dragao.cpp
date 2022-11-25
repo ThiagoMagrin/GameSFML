@@ -8,17 +8,16 @@ namespace Entidades {
     namespace Personagens {
         namespace Inimigos{
             Dragao::Dragao() : Inimigo(nullptr), esquerdaB(false) {}
-            Dragao::~Dragao() {}
+            Dragao::~Dragao(){}
 
-            void Dragao::inicializar(Jogador* pJ, BolaDeFogo* pBola){
-                setJogador(pJ);
-
+            void Dragao::inicializar(Jogador* pJ, Jogador* pJ2, BolaDeFogo* pBola){
+                setJogador(pJ, pJ2);
                 pBolaDeFogo = pBola;
                 setVida(VIDA_DRAGAO);
                 setDano(DANO_DRAGAO);
 
                 //posicao = sf::Vector2f(350.0f, 505.0f);
-                posicao = sf::Vector2f(posicaoAleatoria().x,posicaoAleatoria().y - 30);
+                posicao = sf::Vector2f(posicaoAleatoria(1).x, posicaoAleatoria(1).y);
                 velocidade = sf::Vector2f(30.0f, 30.0f);
 
                 textura = pGraf->carregarTextura("images/Dragao.png");
@@ -26,22 +25,13 @@ namespace Entidades {
                 corpo.setPosition(posicao);
             }
 
-            void Dragao::movimento(){
-                sf::Vector2f posJogador = pJogador->getCorpo().getPosition();
-                sf::Vector2f posInimigo = corpo.getPosition();
-
-                if (chao == false) {
-					cair(0.07f);
-				}
-
-                if ((fabs(posJogador.x - posInimigo.x) <= 500)) {
-
+            void Dragao::configuraBolaDeFogo(sf::Vector2f posJogador, sf::Vector2f posInimigo){
                     if (pBolaDeFogo->getLancado() == false) {
                         if (posJogador.x - posInimigo.x > 0) {
-                            esquerda = true;
+                            esquerdaB = true;
                         }
                         else{
-                            esquerda = false;
+                            esquerdaB = false;
                         }
 
                         pBolaDeFogo->resetar(corpo.getPosition());
@@ -56,8 +46,32 @@ namespace Entidades {
                         pBolaDeFogo->setLancado(false);
                         pBolaDeFogo->setAtingiu(false);
                     }
-                }
+            }
 
+            void Dragao::movimento(){
+                sf::Vector2f posJogador = pJogador->getCorpo().getPosition();
+
+
+
+                sf::Vector2f posJogador2;
+                if (pJogador2 != nullptr) {
+                    posJogador2 = pJogador2->getCorpo().getPosition();
+                }
+                else {
+                    posJogador2 = { 0,0 };
+                }
+                sf::Vector2f posInimigo = corpo.getPosition();
+
+                if (chao == false) {
+					cair(0.07f);
+				}
+
+                if ((fabs(posJogador.x - posInimigo.x) <= 500)) {
+                    configuraBolaDeFogo(posJogador, posInimigo);
+                }
+                else if ((fabs(posJogador2.x - posInimigo.x) <= 500)) {
+                    configuraBolaDeFogo(posJogador2, posInimigo);
+                }
                 else{
                     movimentoEspecifico();
                     pBolaDeFogo->apagar();
@@ -68,14 +82,36 @@ namespace Entidades {
 
             }
 
+            void Dragao::perseguirJogador(){
+                perseguirJogador(pJogador->getPosicao(), getPosicao());
+                if(pJogador2 != nullptr){
+                    perseguirJogador(pJogador2->getPosicao(), getPosicao());
+                }
+            }
+
             void Dragao::perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo) {
-                if ((posJogador.x - posInimigo.x > 0)) {
-                    corpo.move(0.08, 0);
+                if ((posJogador.x - posInimigo.x > 0)){
+                    if(direita == true){
+                        corpo.move(0.05, 0);
+                    }
+                    else{
+                        direita = true;
+                    }
                 }
                 else {
-                    corpo.move(-0.08, 0);
+                    if(esquerda == true){
+                        corpo.move(-0.05, 0);
+                    }
+                    else{
+                        esquerda = true;
+                    }
                 }
-                pBolaDeFogo->lancar(esquerda);
+
+                pBolaDeFogo->lancar(esquerdaB);
+            }
+
+            BolaDeFogo* Dragao::getProjetil(){
+                return pBolaDeFogo;
             }
         }
     }

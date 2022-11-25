@@ -10,11 +10,12 @@ namespace Fases{
         Espinho* pEspinho;
 
     public:
-        Fase_Terra();
+        Fase_Terra(bool doisJogadores = false);
         ~Fase_Terra();
 
         void setNumEnts();
 
+        void inicializaSegundoJogador();
         void inicializaBG();
         void inicializaObjetos();
         void executar();

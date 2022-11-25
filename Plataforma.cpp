@@ -5,7 +5,7 @@ namespace Entidades{
         setID(4);
         std::cout << getId() << std::endl;
         posicao = pos;
-        setTamanho( { 600.0f, 10.f });
+        setTamanho( {600.0f, 10.f});
         executar();
         imprimir();
     }
@@ -24,7 +24,7 @@ namespace Entidades{
 
     void Plataforma::colisao(Entidade* outraEntidade){
         if(outraEntidade->getId() == 1 || outraEntidade->getId() == 2){
-            std::cout << "Colidiu jogador e plataforma" << std::endl;
+           // std::cout << "Colidiu jogador e plataforma" << std::endl;
         }
     }
 }

@@ -12,7 +12,9 @@ namespace Gerenciadores{
 	public:
 		GerenciadorColisao(ListaEntidade* LEstatica, ListaEntidade* LMovimento);
 		~GerenciadorColisao();
+		void colisaoDinamica();
+		void colisaoEstatica();
 		void executar();
-		sf::Vector2f calculaColisao(Entidades::Entidade* Entidade1, Entidades::Entidade* Entidade2);
+		//sf::Vector2f calculaColisao(Entidades::Entidade* Entidade1, Entidades::Entidade* Entidade2);
 	};
 }

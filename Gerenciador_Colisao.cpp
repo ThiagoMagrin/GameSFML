@@ -21,19 +21,14 @@ namespace Gerenciadores{
 		}
 	}
 
-	void GerenciadorColisao::executar() {
-	    bool colide;
-
-
-		Entidade* entidade1 = nullptr;
+	void GerenciadorColisao::colisaoEstatica(){
+        bool colide = false;
+        int tamLMovimento = (int)ListaEntidadeMovimento->getTamanho();
+        int tamLEstatica = (int)ListaEntidadeEstatica->getTamanho();
+        Entidade* entidade1 = nullptr;
 		Entidade* entidade2 = nullptr;
 
-		int tamLEstatica = (int)ListaEntidadeEstatica->getTamanho();
-		int tamLMovimento = (int)ListaEntidadeMovimento->getTamanho();
-
-		entidade1 = nullptr;
-
-		for(int i = 0; i < tamLMovimento; i++){
+        for(int i = 0; i < tamLMovimento; i++){
 			for (int j = 0; j < tamLEstatica; j++){
 				entidade1 = ListaEntidadeMovimento->operator[](i);
 				entidade2 = ListaEntidadeEstatica->operator[](j);
@@ -44,7 +39,7 @@ namespace Gerenciadores{
                 colide = corpo1.intersects(corpo2);
 
                 if(colide){
-                    entidade1->colisao(entidade2);
+                    entidade1->tratarColisao(entidade2);
                 }
 
                 else{
@@ -57,6 +52,13 @@ namespace Gerenciadores{
 				entidade2 = nullptr;
 			}
         }
+	}
+
+    void GerenciadorColisao::colisaoDinamica(){
+        bool colide = false;
+        int tamLMovimento = (int)ListaEntidadeMovimento->getTamanho();
+        Entidade* entidade1 = nullptr;
+		Entidade* entidade2 = nullptr;
 
 		for(int i = 0; i < tamLMovimento; i++){
 			for (int j = 1; j < tamLMovimento; j++){
@@ -69,18 +71,17 @@ namespace Gerenciadores{
                     colide = corpo1.intersects(corpo2);
 
                     if(colide){
-                        entidade1->colisao(entidade2);
-                    }
-                    else{
-                        if(entidade1->getId() == 1){
-                            entidade1->setDireita(true);
-                            entidade1->setEsquerda(true);
-                        }
+                        entidade1->tratarColisao(entidade2);
                     }
                 }
 				entidade1 = nullptr;
 				entidade2 = nullptr;
             }
         }
+	}
+
+	void GerenciadorColisao::executar() {
+        colisaoDinamica();
+        colisaoEstatica();
     }
 }

@@ -4,7 +4,14 @@ namespace Listas {
 	ListaEntidade::ListaEntidade() :
 		objListaEntidade() , todosMortos(false){ }
 
-	ListaEntidade::~ListaEntidade() { }
+	ListaEntidade::~ListaEntidade() {
+	    int tam = objListaEntidade.getTamanho();
+        for(int i = 0; i<tam; i++){
+            if(objListaEntidade[i]){
+                delete objListaEntidade[i];
+            }
+        }
+	}
 
 	void ListaEntidade::adicionarEntidade(Entidades::Entidade* pEntidade) {
 		objListaEntidade.adicionar(pEntidade);
@@ -31,7 +38,15 @@ namespace Listas {
 		int tam = objListaEntidade.getTamanho();
 
 		for (int i = 0; i < tam; i++) {
-			aux = objListaEntidade.operator[](i);
+			aux = objListaEntidade[i];
+
+            if(aux->getMorrer() == true){
+                if(aux->getDano() == 3){
+                    objListaEntidade[i+1]->setMorrer(true);
+                    objListaEntidade[i+1]->setDano(0);
+                }
+                continue;
+            }
 
 			aux->executar();
 			aux->imprimir();
@@ -47,17 +62,24 @@ namespace Listas {
     void ListaEntidade::verificaMortos(){
         Entidades::Entidade* aux = nullptr;
 		int tam = objListaEntidade.getTamanho();
+		todosMortos = true;
 
-		for (int i = 0; i < tam; i++) {
-			aux = objListaEntidade.operator[](i);
-            if(aux->getMorrer() == true){
-                objListaEntidade.remover(i);
-                break;
+		for(int i = 0; i<tam; i++){
+            aux = objListaEntidade[i];
+
+            if(aux->getId() == 2 && aux->getMorrer() == true){
+                aux->setDano(0);
             }
-		}
 
-		if(objListaEntidade.getTamanho() <= 1){
-            todosMortos = true;
+            if(aux->getMorrer() == false && aux->getId() != 1){
+                todosMortos = false;
+            }
+
+            if(todosMortos == false && aux->getId() == 1){
+                if(aux->getMorrer() == false){
+                    todosMortos = true;
+                }
+            }
 		}
     }
 }

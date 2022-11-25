@@ -26,25 +26,22 @@ namespace Entidades {
         return corpo;
     }
 
-	sf::Vector2f Entidade::posicaoAleatoria(float inicio)
+	sf::Vector2f Entidade::posicaoAleatoria(int tipo)
 	{
 		//PEGAR POSICAO DA PLATAFORMA OU DO CHAO
 		//Plataforma {280.0f, 280.0f}
 		//chao (700.0f, 530.0f}
-		int local = rand() % 2;
-
 		float x, y;
-		if (local == 1) {
-			 x = inicio + 80 +static_cast<float>(rand()) * static_cast<float>(250) / RAND_MAX;
+
+		if (tipo == 0) {
+			 x = static_cast<float>(rand() % 740 + 250);
 			 y = 280;
-			//std::cout << " PLATAFORMA";
 		}
+
 		else
 		{
-			//std::cout << " Chao";
-
-			 x =  inicio + static_cast<float>(rand()) * static_cast<float>(600) / RAND_MAX;
-			 y = 530;//+ static_cast<float>(rand()) * static_cast<float>(600) / RAND_MAX;
+			 x = static_cast<float>(rand() % 600 + 370);
+			 y = 530;
 		}
 
 		return sf::Vector2f(x,y);
@@ -71,5 +68,29 @@ namespace Entidades {
         float t = 1;//TEMPO em segundos
         velQueda = intensificador * (GRAVIDADE * t);
         corpo.move(0, velQueda);
+    }
+
+    void Entidade::setAtingiu(bool b){
+        atingiu = b;
+    }
+
+    bool Entidade::getAtingiu(){
+        return atingiu;
+    }
+
+    int Entidade::getVida(){
+        return vida;
+    }
+
+    void Entidade::setVida(int v) {
+        vida += v;
+    }
+
+    int Entidade::getDano(){
+        return dano;
+    }
+
+    void Entidade::setDano(int d){
+        dano = d;
     }
 }

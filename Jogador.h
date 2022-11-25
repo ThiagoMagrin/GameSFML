@@ -6,6 +6,7 @@ namespace Entidades{
             class Jogador : public Personagem{
                 private:
                     int pontuacao;
+                    bool segundoJogador;
 
                 public:
                     Jogador();
@@ -13,12 +14,15 @@ namespace Entidades{
 
                     void setPontuacao(int p);
                     const int getPontuacao() const;
+                    void setSegundoJogador(bool b){
+                        segundoJogador = b;
+                    }
 
                     void movimento();
-                    void inicializar();
+                    void inicializar(sf::Vector2f pos);
                     void executar();
 
-                    void colisao(Entidade* outraEntidade);
+                    void tratarColisao(Entidade* outraEntidade);
                 };
         }
 }

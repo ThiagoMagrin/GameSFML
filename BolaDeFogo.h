@@ -1,12 +1,8 @@
-
 #pragma once
 #include "Entidade.h"
 
 namespace Entidades {
-
-    class BolaDeFogo :
-        public Entidade
-    {
+    class BolaDeFogo : public Entidade{
     private:
         sf::Vector2f posicaoChefao, velocidade;
         bool lancado;

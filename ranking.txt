@@ -1,0 +1,5 @@
+ale 50
+J2 30
+padilha 20
+
+
