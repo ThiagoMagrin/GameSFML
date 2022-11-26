@@ -21,11 +21,12 @@ namespace Entidades {
                     void setJogador(Jogador* pJ, Jogador* pJ2);
 
                     void perseguirJogador();
-                    void perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
+                    
+                    virtual void perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
                     virtual void movimento();
                     virtual void movimentoEspecifico();
-                    void tratarColisao(Entidade* outraEntidade);
-                    void executar();
+                    virtual void tratarColisao(Entidade* outraEntidade);
+                    virtual void executar();
             };
         }
     }

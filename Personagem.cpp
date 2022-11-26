@@ -8,6 +8,16 @@ namespace Entidades {
 
         Personagem::~Personagem() {}
 
+        void Personagem::setVelocidade(sf::Vector2f vel)
+        {
+            velocidade += vel;
+        }
+
+        const sf::Vector2f Personagem::getVelocidade() const
+        {
+            return velocidade;
+        }
+
         void Personagem::setChao(bool b){
             chao = b;
         }
@@ -26,6 +36,16 @@ namespace Entidades {
 
         void Personagem::setEsquerda(bool b){
             esquerda = b;
+        }
+
+        void Personagem::danar(Entidade* outraEntidade)
+        {
+            if (outraEntidade->getMorrer() == false) {
+              //  std::cout << outraEntidade->getId();
+                outraEntidade->setVida(-getDano());
+                //std::cout << "\n DANAR  - ";
+                
+            }
         }
     }
 }

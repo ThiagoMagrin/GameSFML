@@ -61,7 +61,7 @@ namespace Gerenciadores{
 		Entidade* entidade2 = nullptr;
 
 		for(int i = 0; i < tamLMovimento; i++){
-			for (int j = 1; j < tamLMovimento; j++){
+			for (int j = 0; j < tamLMovimento; j++){
 				entidade1 = ListaEntidadeMovimento->operator[](i);
 				entidade2 = ListaEntidadeMovimento->operator[](j);
 				if(entidade1 != entidade2){

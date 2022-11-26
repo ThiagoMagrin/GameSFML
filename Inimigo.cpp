@@ -31,14 +31,16 @@ namespace Entidades {
 			void Inimigo::perseguirJogador(){
                 perseguirJogador(pJogador->getPosicao(), getPosicao());
                 if(pJogador2 != nullptr){
-                   // perseguirJogador(pJogador2->getPosicao(), getPosicao());
+                    perseguirJogador(pJogador2->getPosicao(), getPosicao());
                 }
 			}
+
+
 
 			void Inimigo::perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo) {
 				if ((posJogador.x - posInimigo.x > 0)){
                     if(direita == true){
-                        corpo.move(0.05, 0);
+                        corpo.move(getVelocidade().x, 0);
                     }
                     else{
                         direita = true;
@@ -46,7 +48,7 @@ namespace Entidades {
 				}
 				else{
                     if(esquerda == true){
-                        corpo.move(-0.05, 0);
+                        corpo.move(-getVelocidade().x, 0);
                     }
                     else{
                         esquerda = true;
@@ -60,7 +62,7 @@ namespace Entidades {
                 sf::Vector2f posJogador2;
                 if (pJogador2 == nullptr) {
 
-                     posJogador2 = { 0,0 };
+                     posJogador2 = { 10000,10000 };
                 }
                 else {  posJogador2 = pJogador2->getCorpo().getPosition(); }
 
@@ -77,19 +79,24 @@ namespace Entidades {
 				if(posInimigo.x <= 0){
                     esquerda = false;
 				}
-
-				if ((fabs(posJogador.x - posInimigo.x) <= 500) && (fabs(posJogador.y - posInimigo.y) <= 100)){
-					perseguirJogador();
+               // movimentoEspecifico();
+				if ((fabs(posJogador.x - posInimigo.x) <= 300) && (fabs(posJogador.y - posInimigo.y) <= 50)){
+					//perseguirJogador();
+                    perseguirJogador(pJogador->getPosicao(), getPosicao());
 
 				}
-                else{
+               /* else{
 					movimentoEspecifico();
-				}
+				}*/      
+                else if (pJogador2 != nullptr) {
 
-                if (pJogador2 != nullptr) {
-
-                    if ((fabs(posJogador2.x - posInimigo.x) <= 500) && (fabs(posJogador2.y - posInimigo.y) <= 100)){
-                        perseguirJogador();
+                    if ((fabs(posJogador2.x - posInimigo.x) <= 300) && (fabs(posJogador2.y - posInimigo.y) <= 50)){
+                       // perseguirJogador();
+                        perseguirJogador(pJogador2->getPosicao(), getPosicao());
+                       // std::cout << "PJ2\n";
+                    }
+                    else {
+                        movimentoEspecifico();
                     }
 				}
 				else {
@@ -118,49 +125,53 @@ namespace Entidades {
 
 			void Inimigo::tratarColisao(Entidade* outraEntidade)
 			{
-			    if(outraEntidade->getId() == 2){
-                    if(outraEntidade->getPosicao().x > posicao.x){
+                if (getVida()<=0) { setMorrer(true); }
+                if (outraEntidade->getId() == 1 && !getMorrer()) {
+                    // std::cout << "colisao com jogador!\n";
+                    danar(outraEntidade);
+                    if (outraEntidade->getPosicao().x > posicao.x) {
                         setDireita(false);
                     }
-                    else{
+                    else {
                         setDireita(true);
                     }
 
-                    if(outraEntidade->getPosicao().x < posicao.x){
+                    if (outraEntidade->getPosicao().x < posicao.x) {
                         setEsquerda(false);
                     }
-                    else{
+                    else {
                         setEsquerda(true);
                     }
 
-                    if(outraEntidade->getPosicao().y - 110 > posicao.y){
+                    if (outraEntidade->getPosicao().y - 110 > posicao.y) {
                         setDireita(true);
                         setEsquerda(true);
                         setChao(true);
                     }
-			    }
+                }
 
-				else if(outraEntidade->getId() == 3){
-                    if(outraEntidade->getPosicao().x > posicao.x){
+                else if (outraEntidade->getId() == 3) {
+                    if (outraEntidade->getPosicao().x > posicao.x) {
                         setDireita(false);
                     }
 
-                    else{
+                    else {
                         setEsquerda(false);
                     }
 
-                    if(outraEntidade->getPosicao().y - 110 > posicao.y){
+                    if (outraEntidade->getPosicao().y - 110 > posicao.y) {
                         setDireita(true);
                         setEsquerda(true);
                         setChao(true);
                     }
-				}
+                }
 
-                if (outraEntidade->getId() == 4) {
-					if (outraEntidade->getPosicao().y - 110 > posicao.y) {
-						chao = true;
-					}
-				}
+                else if (outraEntidade->getId() == 4) {
+                    if (outraEntidade->getPosicao().y - 110 > posicao.y) {
+                        chao = true;
+                    }
+                }
+                				
 			}
 
             void Inimigo::executar(){

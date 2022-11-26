@@ -7,13 +7,17 @@ namespace Entidades {
         namespace Inimigos{
             class Esqueleto : public Inimigo {
             private:
-                int decomposicao;
+                float decomposicao;
             public:
                 Esqueleto();
                 ~Esqueleto();
 
                 void inicializar(Jogador* pJ, Jogador* pJ2);
-               // void movimentoEspecifico();
+                void executar();
+                void apodrecer();
+                void movimentoEspecifico();
+                void tratarColisao(Entidade* outraEntidade);
+               // void perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
             };
         }
     }

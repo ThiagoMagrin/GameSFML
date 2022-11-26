@@ -1,8 +1,8 @@
 #include "Jogador.h"
 
 #define VIDAJOGADOR 3000
-#define DANOJOGADOR 5
-#define VELJOGADOR 1.2f
+#define DANOJOGADOR 100
+#define VELJOGADOR 1.0f
 #define PULOJOGADOR 70.0f
 
 namespace Entidades {
@@ -57,27 +57,27 @@ namespace Entidades {
                 }
             }
 
-            else{
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && posJ > 0.0f){
-                    if(esquerda == true){
+            else {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && posJ > 0.0f) {
+                    if (esquerda == true) {
                         corpo.move(-velocidade.x, 0.0f);
                     }
-                    else{
+                    else {
                         esquerda = true;
                     }
                 }
 
-                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && posJ < 1200.0f - 50.0f){
-                    if(direita == true){
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && posJ < 1200.0f - 50.0f) {
+                    if (direita == true) {
                         corpo.move(velocidade.x, 0.0f);
                     }
-                    else{
+                    else {
                         direita = true;
                     }
                 }
 
                 else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-                    if(chao == true){
+                    if (chao == true) {
                         pular(PULOJOGADOR);
                         chao = false;
                     }
@@ -105,15 +105,13 @@ namespace Entidades {
                     break;
                 }
                 case 2:{
-                    if(outraEntidade->getVida() <= 0){
-                        outraEntidade->setMorrer(true);
+                    if (outraEntidade->getMorrer() ==  false) {
+                        danar(outraEntidade);
+                        if (outraEntidade->getVida() <= 0) {
+                            setPontuacao(1);
+                           // std::cout << "matou inimigo";
+                        }
                     }
-                    else{
-                        outraEntidade->setVida(-DANOJOGADOR);
-                        setVida(-outraEntidade->getDano());
-                        setPontuacao(1);
-                    }
-
                     break;
                 }
                 case 3:{
@@ -150,6 +148,7 @@ namespace Entidades {
 
             }
             if(getVida() <= 0){
+             
                 setMorrer(true);
             }
         }

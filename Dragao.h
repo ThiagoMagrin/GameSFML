@@ -19,6 +19,8 @@ namespace Entidades {
                 void perseguirJogador();
                 void perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
                 void movimento();
+                void tratarColisao(Entidade* outraEntidade);
+               
 
                 BolaDeFogo* getProjetil();
             };

@@ -28,6 +28,7 @@ namespace Entidades{
 
             virtual void tratarColisao(Entidade* outraEntidade, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f)) {}
             virtual void executar() = 0;
+            virtual void danar(Entidade* outraEntidade);
 
         };
     }

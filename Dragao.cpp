@@ -50,9 +50,6 @@ namespace Entidades {
 
             void Dragao::movimento(){
                 sf::Vector2f posJogador = pJogador->getCorpo().getPosition();
-
-
-
                 sf::Vector2f posJogador2;
                 if (pJogador2 != nullptr) {
                     posJogador2 = pJogador2->getCorpo().getPosition();
@@ -81,6 +78,64 @@ namespace Entidades {
 
 
             }
+
+            void Dragao::tratarColisao(Entidade* outraEntidade)
+            {
+
+                if (getVida() <= 0) {
+                    getProjetil()->apagar();
+                    setMorrer(true); }
+                if (outraEntidade->getId() == 1 && !getMorrer()) {
+                    // std::cout << "colisao com jogador!\n";
+                    danar(outraEntidade);
+                    if (outraEntidade->getPosicao().x > posicao.x) {
+                        setDireita(false);
+                    }
+                    else {
+                        setDireita(true);
+                    }
+
+                    if (outraEntidade->getPosicao().x < posicao.x) {
+                        setEsquerda(false);
+                    }
+                    else {
+                        setEsquerda(true);
+                    }
+
+                    if (outraEntidade->getPosicao().y - 110 > posicao.y) {
+                        setDireita(true);
+                        setEsquerda(true);
+                        setChao(true);
+                    }
+                }
+
+                else if (outraEntidade->getId() == 3) {
+                    if (outraEntidade->getPosicao().x > posicao.x) {
+                        setDireita(false);
+                    }
+
+                    else {
+                        setEsquerda(false);
+                    }
+
+                    if (outraEntidade->getPosicao().y - 110 > posicao.y) {
+                        setDireita(true);
+                        setEsquerda(true);
+                        setChao(true);
+                    }
+                }
+
+                else if (outraEntidade->getId() == 4) {
+                    if (outraEntidade->getPosicao().y - 110 > posicao.y) {
+                        chao = true;
+                    }
+                }
+
+            }
+
+            
+
+            
 
             void Dragao::perseguirJogador(){
                 perseguirJogador(pJogador->getPosicao(), getPosicao());

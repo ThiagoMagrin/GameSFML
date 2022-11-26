@@ -7,13 +7,17 @@ namespace Entidades {
         namespace Inimigos{
             class Fantasma : public Inimigo {
             private:
-                int assombracao;
+                float assombracao;
             public:
                 Fantasma();
                 ~Fantasma();
 
                 void inicializar(Jogador* pJ, Jogador* pJ2);
-                //void movimentoEspecifico();
+                void movimentoEspecifico();
+                void assombrar(bool a = false);
+                void tratarColisao(Entidade* outraEntidade);                
+                void executar();
+
             };
         }
     }
