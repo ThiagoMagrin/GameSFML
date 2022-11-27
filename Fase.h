@@ -34,9 +34,7 @@ namespace Fases{
 
             int numEnt;
 
-            bool pausado;
-
-            bool doisJogadores;
+            bool pausado, doisJogadores;
         public:
             Fase(bool doisjogadores);
             virtual ~Fase();

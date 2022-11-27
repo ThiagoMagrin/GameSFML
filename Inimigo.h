@@ -21,7 +21,7 @@ namespace Entidades {
                     void setJogador(Jogador* pJ, Jogador* pJ2);
 
                     void perseguirJogador();
-                    
+                    virtual void inicializar(Jogador* pJ, Jogador* pJ2) = 0;
                     virtual void perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
                     virtual void movimento();
                     virtual void movimentoEspecifico();

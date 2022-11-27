@@ -18,9 +18,6 @@ namespace Entidades {
             return velocidade;
         }
 
-        void Personagem::setChao(bool b){
-            chao = b;
-        }
 
         void Personagem::pular(float pulo)
         {
@@ -41,10 +38,7 @@ namespace Entidades {
         void Personagem::danar(Entidade* outraEntidade)
         {
             if (outraEntidade->getMorrer() == false) {
-              //  std::cout << outraEntidade->getId();
                 outraEntidade->setVida(-getDano());
-                //std::cout << "\n DANAR  - ";
-                
             }
         }
     }

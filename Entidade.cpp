@@ -28,9 +28,6 @@ namespace Entidades {
 
 	sf::Vector2f Entidade::posicaoAleatoria(int tipo)
 	{
-		//PEGAR POSICAO DA PLATAFORMA OU DO CHAO
-		//Plataforma {280.0f, 280.0f}
-		//chao (700.0f, 530.0f}
 		float x, y;
 
 		if (tipo == 0) {
@@ -55,9 +52,19 @@ namespace Entidades {
 		morreu = m;
 	}
 
-	bool Entidade::getMorrer(){
+	const bool Entidade::getMorrer() const{
 		return morreu;
 	}
+
+    void Entidade::setChao(bool b)
+    {
+        chao = b;
+    }
+
+    const bool Entidade::getChao() const 
+    {
+        return chao;
+    }
 
 	void Entidade::executar() {}
 
@@ -70,15 +77,7 @@ namespace Entidades {
         corpo.move(0, velQueda);
     }
 
-    void Entidade::setAtingiu(bool b){
-        atingiu = b;
-    }
-
-    bool Entidade::getAtingiu(){
-        return atingiu;
-    }
-
-    int Entidade::getVida(){
+    const int Entidade::getVida()const {
         return vida;
     }
 
@@ -86,11 +85,18 @@ namespace Entidades {
         vida += v;
     }
 
-    int Entidade::getDano(){
+    const int Entidade::getDano()const {
         return dano;
     }
 
     void Entidade::setDano(int d){
-        dano = d;
+        dano += d;
+    }
+    void Entidade::setAtingiu(bool b) {
+        atingiu = b;
+    }
+
+    const bool Entidade::getAtingiu() const {
+        return atingiu;
     }
 }

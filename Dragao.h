@@ -11,16 +11,17 @@ namespace Entidades {
                 bool esquerdaB;
 
             public:
-                Dragao();
+                Dragao(BolaDeFogo* pBola);
                 ~Dragao();
 
+
+                void inicializar(Jogador* pJ, Jogador* pJ2);
                 void configuraBolaDeFogo(sf::Vector2f posJogador, sf::Vector2f posInimigo);
-                void inicializar(Jogador* pJ, Jogador* pJ2, BolaDeFogo* pBola);
                 void perseguirJogador();
                 void perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
                 void movimento();
                 void tratarColisao(Entidade* outraEntidade);
-               
+                
 
                 BolaDeFogo* getProjetil();
             };

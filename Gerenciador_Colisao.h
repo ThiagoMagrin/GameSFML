@@ -15,6 +15,6 @@ namespace Gerenciadores{
 		void colisaoDinamica();
 		void colisaoEstatica();
 		void executar();
-		//sf::Vector2f calculaColisao(Entidades::Entidade* Entidade1, Entidades::Entidade* Entidade2);
+		
 	};
 }

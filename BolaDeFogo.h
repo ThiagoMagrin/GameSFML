@@ -12,18 +12,14 @@ namespace Entidades {
         BolaDeFogo();
         ~BolaDeFogo();
 
-        const bool getLancado() {
-            return lancado;
-        }
-
-        void setLancado(bool b){
-            lancado = b;
-        }
+        const bool getLancado() const;
+        void setLancado(bool b);
 
         void apagar();
         void inicializar();
         void resetar(sf::Vector2f p);
         void lancar(bool esquerda);
         void executar(){}
+        void tratarColisao(Entidade* outraEntidade){}
     };
 }

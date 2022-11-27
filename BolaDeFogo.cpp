@@ -12,6 +12,11 @@ namespace Entidades {
 
 	Entidades::BolaDeFogo::~BolaDeFogo(){}
 
+	const bool BolaDeFogo::getLancado() const
+	{
+		return lancado;
+	}
+
 	void BolaDeFogo::inicializar()
 	{
 		velocidade = sf::Vector2f(VELBOLA, VELBOLA);
@@ -22,6 +27,11 @@ namespace Entidades {
         corpo.setTexture(textura, true);
         corpo.setPosition(posicao);
 
+	}
+
+	void BolaDeFogo::setLancado(bool b)
+	{
+		lancado = b;
 	}
 
 	void BolaDeFogo::apagar()

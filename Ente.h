@@ -26,7 +26,7 @@ class Ente {
 
         static void setGraf(GerenciadorGrafico* pGg);
 
-        virtual void imprimir() {}
+        //virtual void imprimir() {}
 };
 
-//GerenciadorGrafico* Ente::pGraf = 0;
+

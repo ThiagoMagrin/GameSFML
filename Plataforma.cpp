@@ -18,13 +18,10 @@ namespace Entidades{
         corpo.setPosition(posicao);
     }
 
-    void Plataforma::imprimir(){
-        pGraf->desenhaElemento(corpo);
-    }
 
-    void Plataforma::colisao(Entidade* outraEntidade){
-        if(outraEntidade->getId() == 1 || outraEntidade->getId() == 2){
-           // std::cout << "Colidiu jogador e plataforma" << std::endl;
+    void Plataforma::tratarColisao(Entidade* outraEntidade){
+        if(outraEntidade->getId() == 1){
+           //std::cout << "Colidiu jogador e plataforma" << std::endl;
         }
     }
 }

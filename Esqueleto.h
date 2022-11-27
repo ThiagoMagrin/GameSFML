@@ -17,7 +17,6 @@ namespace Entidades {
                 void apodrecer();
                 void movimentoEspecifico();
                 void tratarColisao(Entidade* outraEntidade);
-               // void perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
             };
         }
     }

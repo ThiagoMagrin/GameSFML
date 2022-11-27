@@ -15,6 +15,8 @@ namespace Entidades{
             virtual void executar() { }
             void setCausaDano(bool b);
             const bool getCausaDano();
+
+            void tratarColisao(Entidade* outraEntidade){}
         };
     }
 }

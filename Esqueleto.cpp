@@ -12,13 +12,13 @@ namespace Entidades {
             void Esqueleto::inicializar(Jogador* pJ, Jogador* pJ2) {
                 setJogador(pJ, pJ2);
 
-                decomposicao = 0;// rand() % 4; // 0-3
+                decomposicao =  rand() % 4; // 0-3
                 setVida(VIDA_ESQUELETO);
                 setDano(DANO_ESQUELETO - decomposicao);
 
-                //posicao = sf::Vector2f(900.0f, 540.0f);
+             
                 posicao = sf::Vector2f(posicaoAleatoria(1));
-                //velocidade = sf::Vector2f(70.0f, 70.0f);
+          
                 setVelocidade({ VEL_ESQUELETO, VEL_ESQUELETO });
                 tamanho = sf::Vector2f(70.0f, 70.0f);
                 setTamanho(tamanho);
@@ -70,7 +70,7 @@ namespace Entidades {
 
                 if (aleatorio == 0 ) {// esqueleto pode pular  
                     if (chao == true) {
-                        aleatorio = rand() % 10 + 25;
+                        aleatorio = rand() % 10 + 40;
                         pular( aleatorio);
                         chao = false;
                     }
@@ -151,26 +151,6 @@ namespace Entidades {
 
 
             }
-
-            //void Esqueleto::perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo)
-            //{
-            //    if ((posJogador.x - posInimigo.x > 0)) {
-            //        if (direita == true) {
-            //            corpo.move(getVelocidade().x, 0);
-            //        }
-            //        else {
-            //            direita = true;
-            //        }
-            //    }
-            //    else {
-            //        if (esquerda == true) {
-            //            corpo.move(-getVelocidade().x, 0);
-            //        }
-            //        else {
-            //            esquerda = true;
-            //        }
-            //    }
-            //}
 
 
         }

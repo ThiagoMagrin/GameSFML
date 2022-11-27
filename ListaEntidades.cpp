@@ -8,7 +8,7 @@ namespace Listas {
 	    int tam = objListaEntidade.getTamanho();
         for(int i = 0; i<tam; i++){
             if(objListaEntidade[i]){
-                delete objListaEntidade[i];
+					delete objListaEntidade[i];
             }
         }
 	}

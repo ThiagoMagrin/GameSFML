@@ -16,11 +16,7 @@ namespace Entidades {
                 setVida(VIDA_FANTASMA);
                 setDano(DANO_FANTASMA * assombracao);
                 setTamanho({70.0f, 70.0f});
-
-               // posicao = sf::Vector2f(700.0f, 530.0f);
-               // posicao = sf::Vector2f({ 280.0f, 280.0f });
                 posicao = sf::Vector2f(posicaoAleatoria(1));
-               // velocidade = sf::Vector2f(150.0f, 150.0f);
                 setVelocidade({VEL_FANTASMA,VEL_FANTASMA });
                 textura = pGraf->carregarTextura("images/Fantasma.png");
                 corpo.setTexture(textura, true);

@@ -9,9 +9,9 @@ namespace Entidades{
             Plataforma(sf::Vector2f pos);
             ~Plataforma();
 
-            void colisao(Entidade* outraEntidade);
+            
             void executar();
-            void imprimir();
+            void tratarColisao(Entidade* outraEntidade);
     };
 }
 

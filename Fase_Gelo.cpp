@@ -71,10 +71,10 @@ namespace Fases{
 
     void Fase_Gelo::criarDragoes(){
         for (int i = 0; i < 3; i++) {
-            pDragao = new Dragao();
+            
             pBolaDeFogo = new BolaDeFogo();
-
-            pDragao->inicializar(pJogador, pJogador2, pBolaDeFogo);
+            pDragao = new Dragao(pBolaDeFogo);
+            pDragao->inicializar(pJogador, pJogador2 );
             pBolaDeFogo->inicializar();
 
             Entidades::Entidade* chefao = static_cast<Entidades::Entidade*> (pDragao);

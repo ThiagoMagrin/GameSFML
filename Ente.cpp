@@ -1,6 +1,6 @@
 #include "Ente.h"
 
-Ente::Ente(const int id): id(id) {}/*, pGrafico(pGrafico->getGerenciadorGrafico())*/
+Ente::Ente(const int id): id(id) {}
 
 Ente::~Ente() {}
 

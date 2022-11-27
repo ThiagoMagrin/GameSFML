@@ -28,7 +28,7 @@ namespace Fases {
         textoPause.setFont(fonte);
         textoPause.setCharacterSize(40);
         textoPause.setPosition(100, 100);
-
+       
         pListaDinamica = new ListaEntidade();
         pListaEstatica = new ListaEntidade();
         pJogador = new Jogador();
@@ -37,21 +37,16 @@ namespace Fases {
 
         Entidades::Entidade* jogador = static_cast<Entidades::Entidade*> (pJogador);
         Entidades::Entidade* plataforma = static_cast<Entidades::Entidade*> (pPlataforma);
-
+      
         pListaDinamica->adicionarEntidade(jogador);
-       // doisJogadores = true;
-        //std::cout << "\n\nDOIS JOGADORES - " << doisjogadores << "\n\n";
-        if (doisJogadores){
-           
-            criarJogador2(); 
-        }
+        pListaEstatica->adicionarEntidade(plataforma);
+        if (doisJogadores) {
 
+            criarJogador2();
+        }
         else {
             pJogador2 = nullptr;
         }
-
-        pListaEstatica->adicionarEntidade(plataforma);
-
         criarFantasmas();
         criarPedras();
     }
@@ -153,9 +148,7 @@ namespace Fases {
         {
             std::cerr << " Arquivo não pode ser aberto " << std::endl;
             fflush(stdin);
-            // getchar();
             return;
-            //Grava.clear();
         }
         remove("ranking.txt");
         lista.sort(compare);
@@ -164,18 +157,16 @@ namespace Fases {
             std::cout << "nome: " << (it)->nome << " pts: " << (it)->pts << std::endl;
             Grava << (it)->nome << ' ' << (it)->pts << "\n";
         }
-        //lista.clear();
-        // Recupera.close();
         Grava.close();
     }
 
     void Fases::Fase::criarJogador2()
     {
-        std::cout << "CRIANDO SEGUNDO JOGADOR!";
+       //std::cout << "CRIANDO SEGUNDO JOGADOR!";
         pJogador2 = new Jogador();
         Entidades::Entidade* jogador2 = static_cast<Entidades::Entidade*> (pJogador2);
         pListaDinamica->adicionarEntidade(jogador2);
         pJogador2->inicializar({120.0f, 490.0f});
         pJogador2->setSegundoJogador(true);
-        std::cout << "SEGUNDO JOGADOR CRIADO!";
+       //std::cout << "SEGUNDO JOGADOR CRIADO!";
     }

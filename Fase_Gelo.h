@@ -15,7 +15,6 @@ namespace Fases{
 
             ~Fase_Gelo();
 
-            void inicializaSegundoJogador();
             void inicializaObjetos();
             void inicializaBG();
             void executar(int J1pts ,int J2pts );

@@ -7,12 +7,31 @@
 namespace Entidades {
     namespace Personagens {
         namespace Inimigos{
-            Dragao::Dragao() : Inimigo(nullptr), esquerdaB(false) {}
+            Dragao::Dragao(BolaDeFogo* pBola) : Inimigo(nullptr,nullptr),pBolaDeFogo(nullptr), esquerdaB(false) {
+                pBolaDeFogo = pBola;
+            }
             Dragao::~Dragao(){}
 
-            void Dragao::inicializar(Jogador* pJ, Jogador* pJ2, BolaDeFogo* pBola){
+            //void Dragao::inicializar(Jogador* pJ, Jogador* pJ2, BolaDeFogo* pBola){
+            //    setJogador(pJ, pJ2);
+            //    
+            //    setVida(VIDA_DRAGAO);
+            //    setDano(DANO_DRAGAO);
+
+            //    //posicao = sf::Vector2f(350.0f, 505.0f);
+            //    posicao = sf::Vector2f(posicaoAleatoria(1).x, posicaoAleatoria(1).y);
+            //    velocidade = sf::Vector2f(30.0f, 30.0f);
+
+            //    textura = pGraf->carregarTextura("images/Dragao.png");
+            //    corpo.setTexture(textura, true);
+            //    corpo.setPosition(posicao);
+            //}
+
+            
+            void Dragao::inicializar(Jogador* pJ, Jogador* pJ2)
+            {
                 setJogador(pJ, pJ2);
-                pBolaDeFogo = pBola;
+
                 setVida(VIDA_DRAGAO);
                 setDano(DANO_DRAGAO);
 
