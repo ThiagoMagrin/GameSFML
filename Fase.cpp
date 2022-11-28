@@ -8,13 +8,19 @@
 #include <string>
 using namespace std;
 
-typedef struct Registro {
+typedef struct Registro
+{
     string nome;
     int pts;
-}Registro;
+} Registro;
 
-namespace Fases {
-    Fase::Fase(bool doisJogadores) : Ente(0), pJogador(nullptr), pJogador2(nullptr), pFantasma(nullptr), pPedra(nullptr), texturaBG(), background(), pausado(false){
+namespace Fases
+{
+    Fase::Fase() : Ente(0)
+    {
+    }
+    Fase::Fase(bool doisJogadores) : Ente(0), pJogador(nullptr), pJogador2(nullptr), pFantasma(nullptr), pPedra(nullptr), texturaBG(), background(), pausado(false)
+    {
         sorteiaNumEnt();
 
         fonte.loadFromFile("times new roman.ttf");
@@ -28,39 +34,50 @@ namespace Fases {
         textoPause.setFont(fonte);
         textoPause.setCharacterSize(40);
         textoPause.setPosition(100, 100);
-       
+
         pListaDinamica = new ListaEntidade();
         pListaEstatica = new ListaEntidade();
         pJogador = new Jogador();
-        pPlataforma = new Plataforma({ 280.0f, 350.0f });
+        pPlataforma = new Plataforma({280.0f, 350.0f});
         pColisao = new GerenciadorColisao(pListaEstatica, pListaDinamica);
 
-        Entidades::Entidade* jogador = static_cast<Entidades::Entidade*> (pJogador);
-        Entidades::Entidade* plataforma = static_cast<Entidades::Entidade*> (pPlataforma);
-      
+        Entidades::Entidade *jogador = static_cast<Entidades::Entidade *>(pJogador);
+        Entidades::Entidade *plataforma = static_cast<Entidades::Entidade *>(pPlataforma);
+
         pListaDinamica->adicionarEntidade(jogador);
-        pListaEstatica->adicionarEntidade(plataforma);
-        if (doisJogadores) {
+        // doisJogadores = true;
+        // std::cout << "\n\nDOIS JOGADORES - " << doisjogadores << "\n\n";
+        if (doisJogadores)
+        {
 
             criarJogador2();
         }
-        else {
+
+        else
+        {
             pJogador2 = nullptr;
         }
+
+        pListaEstatica->adicionarEntidade(plataforma);
+        pListaDinamica->adicionarEntidade(plataforma);
+
         criarFantasmas();
         criarPedras();
     }
 
     Fase::~Fase() {}
 
-    void Fase::sorteiaNumEnt() {
+    void Fase::sorteiaNumEnt()
+    {
         numEnt = rand() % 2 + 3;
     }
 
-    void Fase::atualizaTexto() {
+    void Fase::atualizaTexto()
+    {
         std::string text;
 
-        if(pJogador->getVida() < 0){
+        if (pJogador->getVida() < 0)
+        {
             pJogador->setVida(0);
         }
 
@@ -70,8 +87,10 @@ namespace Fases {
         text += std::to_string(pJogador->getPontuacao());
         textoVida.setString(text);
 
-        if (pJogador2 != nullptr) {
-            if(pJogador2->getVida() < 0){
+        if (pJogador2 != nullptr)
+        {
+            if (pJogador2->getVida() < 0)
+            {
                 pJogador2->setVida(0);
             }
 
@@ -83,77 +102,110 @@ namespace Fases {
         }
     }
 
-    void Fase::criarFantasmas() {
-        for (int i = 0; i < numEnt; i++) {
+    void Fase::criarFantasmas()
+    {
+        for (int i = 0; i < numEnt; i++)
+        {
             pFantasma = new Fantasma();
 
             pFantasma->inicializar(pJogador, pJogador2);
-            Entidades::Entidade* fantasma = static_cast<Entidades::Entidade*> (pFantasma);
+            Entidades::Entidade *fantasma = static_cast<Entidades::Entidade *>(pFantasma);
             pListaDinamica->adicionarEntidade(fantasma);
         }
         std::cout << "FANTASMAS CRIADAS!\n";
     }
 
-    void Fase::criarPedras() {
-        for (int i = 0; i < numEnt; i++) {
+    void Fase::criarPedras()
+    {
+        for (int i = 0; i < numEnt; i++)
+        {
             pPedra = new Pedra();
 
             pPedra->inicializar();
-            Entidades::Entidade* Pedra = static_cast<Entidades::Entidade*> (pPedra);
+            Entidades::Entidade *Pedra = static_cast<Entidades::Entidade *>(pPedra);
             pListaEstatica->adicionarEntidade(Pedra);
         }
         std::cout << "PEDRAS CRIADAS!\n";
     }
-}
-    /* gravar pontuacao */
 
-    bool compare(Registro& first, Registro second)
+    bool compare(const Registro &first, const Registro &second)
     {
-        if (first.pts > second.pts) return true;
-        else if (first.pts < second.pts) return false;
-        return (first.pts < second.pts);
+        if (first.pts > second.pts)
+            return true;
+        else
+            return false;
     }
 
-    void Fases::Fase::GravarPontuacao(int pts)
+    void Fase::gravarPontuacao()
     {
         std::list<Registro> lista;
         Registro aux;
-        aux.pts = pts;
 
-        std::cin >> aux.nome;
+        // LE ARQUIVO E ADICIONA NA LISTA
+        std::ifstream Recupera("ranking.txt", std::ios::in);
+        try
+        {
+            if (!Recupera)
+            {
+                throw(1);
+            }
+        }
+        catch (int error)
+        {
+            if (error == 1)
+            {
+                std::cout << "Arquivo nao foi inicializado" << std::endl;
+            }
+        }
 
-        std::cout << " jogador incluido - " << aux.nome << " " << aux.pts << "\n\n";
-        lista.push_back(aux);
-
-        //recupera arquivos e os coloca na lista
-        std::ifstream Recupera("ranking.txt", std::ios::in);//in
         if (!Recupera)
         {
-            std::cerr << " Arquivo não pode ser aberto" << std::endl;
+            std::cerr << " Arquivo nao pode ser aberto" << std::endl;
             fflush(stdin);
             getchar();
         }
-        std::cout << "REGISTROS RECUPERADOS!\n";
-        while (!Recupera.eof()) {
+
+        for (int i = 0; i < 3; i++)
+        {
             Recupera >> aux.nome >> aux.pts;
             lista.push_back(aux);
             std::cout << "nome: " << aux.nome << " pts: " << aux.pts << std::endl;
         }
-        remove("ranking.txt");//limpa arquivo -  n esta funcionado
         Recupera.close();
 
-        //grava no arquivo
-        std::ofstream Grava("ranking.txt", std::ios::in);
+        // RECEBE DADOS, COLOCA NA LISTA, ORDENA LISTA E RETIRA O MENOR NUMERO
+        std::cout << "Digite o nome do primeiro jogador: ";
+        std::cin >> aux.nome;
+        aux.pts = pJogador->getPontuacao();
+        lista.push_back(aux);
+
+        if (pJogador2 != nullptr)
+        {
+            std::cout << "\nDigite o nome do segundo jogador: ";
+            std::cin >> aux.nome;
+            aux.pts = pJogador2->getPontuacao();
+
+            lista.push_back(aux);
+        }
+
+        lista.sort(compare);
+
+        while (lista.size() > 3)
+        {
+            lista.pop_back();
+        }
+
+        std::ofstream Grava;
+        Grava.open("ranking.txt", std::ofstream::in | std::ofstream::trunc);
         if (!Grava)
         {
-            std::cerr << " Arquivo não pode ser aberto " << std::endl;
+            std::cerr << "Arquivo nao pode ser aberto" << std::endl;
             fflush(stdin);
-            return;
+            getchar();
         }
-        remove("ranking.txt");
-        lista.sort(compare);
-        std::cout << "REGISTRO ORDENADO \n ";
-        for (std::list<Registro>::iterator it = lista.begin(); it != lista.end(); it++) {
+
+        for (std::list<Registro>::iterator it = lista.begin(); it != lista.end(); it++)
+        {
             std::cout << "nome: " << (it)->nome << " pts: " << (it)->pts << std::endl;
             Grava << (it)->nome << ' ' << (it)->pts << "\n";
         }
@@ -162,11 +214,12 @@ namespace Fases {
 
     void Fases::Fase::criarJogador2()
     {
-       //std::cout << "CRIANDO SEGUNDO JOGADOR!";
+        std::cout << "CRIANDO SEGUNDO JOGADOR!";
         pJogador2 = new Jogador();
-        Entidades::Entidade* jogador2 = static_cast<Entidades::Entidade*> (pJogador2);
+        Entidades::Entidade *jogador2 = static_cast<Entidades::Entidade *>(pJogador2);
         pListaDinamica->adicionarEntidade(jogador2);
         pJogador2->inicializar({120.0f, 490.0f});
         pJogador2->setSegundoJogador(true);
-       //std::cout << "SEGUNDO JOGADOR CRIADO!";
+        std::cout << "SEGUNDO JOGADOR CRIADO!";
     }
+}

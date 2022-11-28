@@ -1,16 +1,21 @@
 #pragma once
 #include "Obstaculo.h"
 
-namespace Entidades{
-    namespace Obstaculos{
-        class Espinho : public Obstaculo{
+namespace Entidades
+{
+    namespace Obstaculos
+    {
+        class Espinho : public Obstaculo
+        {
         private:
             int forcaEspinhos;
+
         public:
             Espinho();
             ~Espinho();
 
             void inicializar();
+            void obstacular(Entidade *outraEntidade);
         };
     }
 }

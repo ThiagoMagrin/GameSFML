@@ -4,18 +4,14 @@
 #define VELBOLA 0.3f
 #define DANOBOLA 30.0f
 
-namespace Entidades {
-	BolaDeFogo::BolaDeFogo(): lancado(false)
+namespace Entidades
+{
+	BolaDeFogo::BolaDeFogo() : lancado(false)
 	{
 		setID(5);
 	}
 
-	Entidades::BolaDeFogo::~BolaDeFogo(){}
-
-	const bool BolaDeFogo::getLancado() const
-	{
-		return lancado;
-	}
+	Entidades::BolaDeFogo::~BolaDeFogo() {}
 
 	void BolaDeFogo::inicializar()
 	{
@@ -23,15 +19,9 @@ namespace Entidades {
 		setDano(DANOBOLA);
 		posicao = sf::Vector2f(350.0f, 505.0f);
 
-        textura = pGraf->carregarTextura("images/fireball.png");
-        corpo.setTexture(textura, true);
-        corpo.setPosition(posicao);
-
-	}
-
-	void BolaDeFogo::setLancado(bool b)
-	{
-		lancado = b;
+		textura = pGraf->carregarTextura("images/fireball.png");
+		corpo.setTexture(textura, true);
+		corpo.setPosition(posicao);
 	}
 
 	void BolaDeFogo::apagar()
@@ -46,23 +36,37 @@ namespace Entidades {
 		lancado = true;
 	}
 
+	const bool BolaDeFogo::getLancado()
+	{
+		return lancado;
+	}
+
+	void BolaDeFogo::setLancado(bool b)
+	{
+		lancado = b;
+	}
+
 	void BolaDeFogo::lancar(bool esquerdaB)
 	{
-		if(corpo.getPosition().x >= 0 && corpo.getPosition().x <= 1300) {
-			if (esquerdaB == true){
+		if (corpo.getPosition().x >= 0 && corpo.getPosition().x <= 1300)
+		{
+			if (esquerdaB == true)
+			{
 				corpo.move(VELBOLA, 0);
 			}
-			else{
+			else
+			{
 				corpo.move(-VELBOLA, 0);
 			}
 
 			cair(0.005f);
 		}
 
-		else{
-            apagar();
-            lancado = false;
-            atingiu = false;
+		else
+		{
+			apagar();
+			lancado = false;
+			atingiu = false;
 		}
 	}
 }

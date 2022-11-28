@@ -1,5 +1,3 @@
-ale 50
-J2 30
-padilha 20
-
-
+exemploA 3
+exemploB 2
+exemploC 1

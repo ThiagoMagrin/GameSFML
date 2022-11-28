@@ -1,84 +1,100 @@
 #include "Fase_Gelo.h"
 #include "Jogo.h"
 
-namespace Fases{
-    Fase_Gelo::Fase_Gelo(bool doisJogadores): Fase(doisJogadores), pDragao(nullptr), pBolaDeFogo(nullptr){
+namespace Fases
+{
+    Fase_Gelo::Fase_Gelo()
+    {
+    }
+    Fase_Gelo::Fase_Gelo(bool doisJogadores) : Fase(doisJogadores), pDragao(nullptr), pBolaDeFogo(nullptr)
+    {
         inicializaObjetos();
         inicializaBG();
     }
 
-    Fase_Gelo::~Fase_Gelo(){
-        if(pJogador){
+    Fase_Gelo::~Fase_Gelo()
+    {
+        if (pJogador)
+        {
             delete (pJogador);
         }
         pJogador = nullptr;
 
-        if (pJogador2) {
+        if (pJogador2)
+        {
             delete (pJogador2);
         }
         pJogador2 = nullptr;
 
-        if(pPlataforma){
+        if (pPlataforma)
+        {
             delete (pPlataforma);
         }
         pPlataforma = nullptr;
 
-        if(pFantasma){
+        if (pFantasma)
+        {
             delete (pFantasma);
         }
         pFantasma = nullptr;
 
-        if(pListaDinamica){
+        if (pListaDinamica)
+        {
             delete (pListaDinamica);
         }
         pListaDinamica = nullptr;
 
-        if(pListaEstatica){
+        if (pListaEstatica)
+        {
             delete (pListaEstatica);
         }
         pListaEstatica = nullptr;
 
-        if(pColisao){
+        if (pColisao)
+        {
             delete (pColisao);
         }
         pColisao = nullptr;
 
-        if(pDragao){
+        if (pDragao)
+        {
             delete (pDragao);
         }
         pDragao = nullptr;
 
-        if(pBolaDeFogo){
+        if (pBolaDeFogo)
+        {
             delete (pBolaDeFogo);
         }
         pBolaDeFogo = nullptr;
     }
 
-    void Fase_Gelo::inicializaBG(){
+    void Fase_Gelo::inicializaBG()
+    {
         texturaBG.loadFromFile("images/fase_dois.png");
         background.setTexture(texturaBG);
     }
 
-    void Fase_Gelo::inicializaObjetos(){
+    void Fase_Gelo::inicializaObjetos()
+    {
         pJogador->inicializar({20.0f, 490.0f});
 
         criarDragoes();
         criarTronco();
-
-        std::cout << "Lista personagens criada, tamanho:" << pListaDinamica->getTamanho() << std::endl;
-        std::cout << "Lista obstaculos criada, tamanho:" << pListaEstatica->getTamanho() << std::endl;
     }
 
-    void Fase_Gelo::criarDragoes(){
-        for (int i = 0; i < 3; i++) {
-            
+    void Fase_Gelo::criarDragoes()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            pDragao = new Dragao();
             pBolaDeFogo = new BolaDeFogo();
-            pDragao = new Dragao(pBolaDeFogo);
-            pDragao->inicializar(pJogador, pJogador2 );
+
+            pDragao->inicializar(pJogador, pJogador2, pBolaDeFogo);
             pBolaDeFogo->inicializar();
 
-            Entidades::Entidade* chefao = static_cast<Entidades::Entidade*> (pDragao);
-            Entidades::Entidade* bolaDeFogo = static_cast<Entidades::Entidade*> (pBolaDeFogo);
+            Entidades::Entidade *chefao = static_cast<Entidades::Entidade *>(pDragao);
+            Entidades::Entidade *bolaDeFogo = static_cast<Entidades::Entidade *>(pBolaDeFogo);
 
             pListaDinamica->adicionarEntidade(chefao);
             pListaDinamica->adicionarEntidade(bolaDeFogo);
@@ -86,77 +102,98 @@ namespace Fases{
         std::cout << "Dragoes CRIADOS!\n";
     }
 
-    void Fase_Gelo::criarTronco(){
-        for (int i = 0; i<numEnt; i++) {
+    void Fase_Gelo::criarTronco()
+    {
+        for (int i = 0; i < numEnt; i++)
+        {
             pTronco = new Tronco();
 
             pTronco->inicializar();
-            Entidades::Entidade* Tronco = static_cast<Entidades::Entidade*> (pTronco);
+            Entidades::Entidade *Tronco = static_cast<Entidades::Entidade *>(pTronco);
             pListaEstatica->adicionarEntidade(Tronco);
         }
         std::cout << "ESPINHOS CRIADOS!\n";
     }
 
-    void Fase_Gelo::executar(int J1pts, int J2pts){
+    void Fase_Gelo::executar(int J1pts, int J2pts, int J1vida, int J2vida)
+    {
         sf::Event evento;
         bool continuarJogando = true;
         bool press = false;
 
         pJogador->setPontuacao(J1pts);
-        if(pJogador2 != nullptr){
+        pJogador->setVida(-pJogador->getVida());
+        pJogador->setVida(J1vida);
+
+        if (pJogador2 != nullptr)
+        {
             pJogador2->setPontuacao(J2pts);
+            pJogador2->setVida(-pJogador2->getVida());
+            pJogador2->setVida(J2vida);
         }
 
-        while (pGraf->verificaJanelaAberta() && continuarJogando == true){
-            while (pGraf->getWindow()->pollEvent(evento) || continuarJogando == true) {
-                if (evento.type == sf::Event::Closed) {
+        while (pGraf->verificaJanelaAberta() && continuarJogando == true)
+        {
+            while (pGraf->getWindow()->pollEvent(evento) || continuarJogando == true)
+            {
+                if (evento.type == sf::Event::Closed)
+                {
                     pGraf->fecharJanela();
                     continuarJogando = false;
                 }
 
-                if(pJogador->getMorrer() == true){
-                    if(pJogador2 != nullptr){
-                        if(pJogador2->getMorrer() == true){
+                if (pJogador->getMorreu() == true)
+                {
+                    if (pJogador2 != nullptr)
+                    {
+                        if (pJogador2->getMorreu() == true)
+                        {
                             std::cout << "JOGADORES MORRERAM! GAME OVER\n\n";
 
                             continuarJogando = false;
                         }
                     }
-                    else{
+                    else
+                    {
                         std::cout << "JOGADOR MORREU! GAME OVER\n\n";
                         continuarJogando = false;
                     }
                 }
 
-                if (pListaDinamica->getTodosMortos() == true) {
+                if (pListaDinamica->getTodosMortos() == true)
+                {
                     std::cout << "Todos os inimigos estao mortos! \nPARABENS!" << std::endl;
-
                     continuarJogando = false;
                 }
 
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && press == false){
+                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::P) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) && press == false)
+                {
                     press = true;
-                    if (pausado == false) {
+                    if (pausado == false)
+                    {
                         pausado = true;
 
                         for (int a = 0; a < 60000; a++)
-                            for (int b = 0; b < 1000; b++);
+                            for (int b = 0; b < 1000; b++)
+                                ;
 
                         std::cout << "PAUSAR" << std::endl;
                     }
-                    else{
+                    else
+                    {
                         pausado = false;
 
                         for (int a = 0; a < 60000; a++)
-                            for (int b = 0; b < 1000; b++);
+                            for (int b = 0; b < 1000; b++)
+                                ;
 
                         std::cout << "VOLTAR" << std::endl;
                     }
                     press = false;
                 }
 
-
-                if (pausado == false) {
+                if (pausado == false)
+                {
                     pGraf->limpaJanela();
                     pGraf->desenhaBackground(background);
                     atualizaTexto();
@@ -168,7 +205,8 @@ namespace Fases{
                     pGraf->mostrarJanela();
                 }
 
-                else{
+                else
+                {
                     std::string text;
                     text = "PAUSE";
                     pGraf->limpaJanela();
@@ -178,15 +216,8 @@ namespace Fases{
 
                     pGraf->escreveTexto(&textoPause);
                     pGraf->mostrarJanela();
-                   // GravarPontuacao();
                 }
             }
-        }
-
-        std::cout << "PONTUACAO J1: " << pJogador->getPontuacao() << std::endl;
-
-        if (pJogador2 != nullptr) {
-            std::cout << "PONTUACAO J2: " << pJogador2->getPontuacao() << std::endl;
         }
     }
 }

@@ -3,25 +3,29 @@
 #include "Dragao.h"
 #include "Tronco.h"
 
-namespace Fases{
-    class Fase_Gelo : public Fase{
-        private:
-            Dragao* pDragao;
-            BolaDeFogo* pBolaDeFogo;
-            Tronco* pTronco;
+namespace Fases
+{
+    class Fase_Gelo : public Fase
+    {
+    private:
+        Dragao *pDragao;
+        BolaDeFogo *pBolaDeFogo;
+        Tronco *pTronco;
 
-        public:
-            Fase_Gelo(bool doisJogadores = false);
+    public:
+        Fase_Gelo();
+        Fase_Gelo(bool doisJogadores = false);
 
-            ~Fase_Gelo();
+        ~Fase_Gelo();
 
-            void inicializaObjetos();
-            void inicializaBG();
-            void executar(int J1pts ,int J2pts );
-            void executar(){}
-            void imprimir() {};
+        void inicializaSegundoJogador();
+        void inicializaObjetos();
+        void inicializaBG();
+        void executar(int J1pts, int J2pts, int J1vida, int J2vida);
+        void executar() {}
+        void imprimir(){};
 
-            void criarDragoes();
-            void criarTronco();
+        void criarDragoes();
+        void criarTronco();
     };
 }

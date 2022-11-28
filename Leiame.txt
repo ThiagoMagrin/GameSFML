@@ -1,0 +1,6 @@
+Leiame - jogo Warrior++  
+Alexandre Padilha e Thiago Magrin
+
+SO: Windows 10 ou Windows 11 
+Compilador: g++.exe (MinGW.org GCC Build-2) 9.2.0
+Biblioteca grafica - SFML versão 2.5.1

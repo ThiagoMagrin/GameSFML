@@ -1,7 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include "Jogo.h"
 
-int main() {
+int main()
+{
     Jogo objJogo;
 
     return 0;

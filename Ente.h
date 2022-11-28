@@ -12,21 +12,21 @@ using namespace Gerenciadores;
 // Plataforma = 4
 // Projetil = 5
 
-class Ente {
-    protected:
-        int id;
-        static GerenciadorGrafico* pGraf;
+class Ente
+{
+protected:
+    int id;
+    static GerenciadorGrafico *pGraf;
 
-    public:
-        Ente(int id = 0);
-        ~Ente();
+public:
+    Ente();
+    Ente(int id = 0);
+    ~Ente();
 
-        const int getId() const;
-        void setID(const int i);
+    const int getId() const;
+    void setID(const int i);
 
-        static void setGraf(GerenciadorGrafico* pGg);
+    static void setGraf(GerenciadorGrafico *pGg);
 
-        //virtual void imprimir() {}
+    virtual void imprimir() {}
 };
-
-

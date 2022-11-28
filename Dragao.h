@@ -2,30 +2,32 @@
 #include "BolaDeFogo.h"
 #include "Inimigo.h"
 
-namespace Entidades {
-    namespace Personagens {
-        namespace Inimigos{
-            class Dragao : public Inimigo {
+namespace Entidades
+{
+    namespace Personagens
+    {
+        namespace Inimigos
+        {
+            class Dragao : public Inimigo
+            {
             private:
-                BolaDeFogo* pBolaDeFogo;
+                BolaDeFogo *pBolaDeFogo;
                 bool esquerdaB;
 
             public:
-                Dragao(BolaDeFogo* pBola);
+                Dragao();
                 ~Dragao();
 
-
-                void inicializar(Jogador* pJ, Jogador* pJ2);
                 void configuraBolaDeFogo(sf::Vector2f posJogador, sf::Vector2f posInimigo);
+                void inicializar(Jogador *pJ, Jogador *pJ2, BolaDeFogo *pBola);
                 void perseguirJogador();
                 void perseguirJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
                 void movimento();
-                void tratarColisao(Entidade* outraEntidade);
-                
+                void tratarColisao(Entidade *outraEntidade);
+                void movimentoEspecifico();
 
-                BolaDeFogo* getProjetil();
+                BolaDeFogo *getProjetil();
             };
         }
     }
 }
-

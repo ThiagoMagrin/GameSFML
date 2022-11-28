@@ -3,7 +3,8 @@
 #include "ListaTemplate.h"
 #include "Entidade.h"
 
-namespace Listas {
+namespace Listas
+{
 	class ListaEntidade
 	{
 	private:
@@ -14,11 +15,11 @@ namespace Listas {
 		ListaEntidade();
 		~ListaEntidade();
 
-		void adicionarEntidade(Entidades::Entidade* pEntidade);
-		void removerEntidade(Entidades::Entidade* pEntidade);
+		void adicionarEntidade(Entidades::Entidade *pEntidade);
+		void removerEntidade(Entidades::Entidade *pEntidade);
 		void removerEntidade(unsigned int posicao);
 		unsigned int getTamanho();
-		Entidades::Entidade* operator[](int posicao);
+		Entidades::Entidade *operator[](int posicao);
 		void executar();
 
 		bool getTodosMortos();

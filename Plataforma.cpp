@@ -1,27 +1,36 @@
 #include "Plataforma.h"
 
-namespace Entidades{
-    Plataforma::Plataforma(sf::Vector2f pos){
+namespace Entidades
+{
+    Plataforma::Plataforma()
+    {
+        setID(4);
+    }
+    Plataforma::Plataforma(sf::Vector2f pos)
+    {
         setID(4);
         std::cout << getId() << std::endl;
         posicao = pos;
-        setTamanho( {600.0f, 10.f});
+        setTamanho({600.0f, 10.f});
         executar();
         imprimir();
     }
 
-    Plataforma::~Plataforma(){}
+    Plataforma::~Plataforma() {}
 
-    void Plataforma::executar(){
+    void Plataforma::executar()
+    {
         textura = pGraf->carregarTextura("images/Plataforma.png");
         corpo.setTexture(textura, true);
         corpo.setPosition(posicao);
     }
 
+    void Plataforma::imprimir()
+    {
+        pGraf->desenhaElemento(corpo);
+    }
 
-    void Plataforma::tratarColisao(Entidade* outraEntidade){
-        if(outraEntidade->getId() == 1){
-           //std::cout << "Colidiu jogador e plataforma" << std::endl;
-        }
+    void Plataforma::tratarColisao(Entidade *outraEntidade)
+    {
     }
 }

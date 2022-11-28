@@ -1,52 +1,64 @@
 #include "ListaEntidades.h"
 
-namespace Listas {
-	ListaEntidade::ListaEntidade() :
-		objListaEntidade() , todosMortos(false){ }
+namespace Listas
+{
+	ListaEntidade::ListaEntidade() : objListaEntidade(), todosMortos(false) {}
 
-	ListaEntidade::~ListaEntidade() {
-	    int tam = objListaEntidade.getTamanho();
-        for(int i = 0; i<tam; i++){
-            if(objListaEntidade[i]){
-					delete objListaEntidade[i];
-            }
-        }
+	ListaEntidade::~ListaEntidade()
+	{
+		int tam = objListaEntidade.getTamanho();
+		for (int i = 0; i < tam; i++)
+		{
+			if (objListaEntidade[i])
+			{
+				delete objListaEntidade[i];
+			}
+		}
 	}
 
-	void ListaEntidade::adicionarEntidade(Entidades::Entidade* pEntidade) {
+	void ListaEntidade::adicionarEntidade(Entidades::Entidade *pEntidade)
+	{
 		objListaEntidade.adicionar(pEntidade);
 	}
 
-	void ListaEntidade::removerEntidade(Entidades::Entidade* pEntidade) {
+	void ListaEntidade::removerEntidade(Entidades::Entidade *pEntidade)
+	{
 		objListaEntidade.remover(pEntidade);
 	}
 
-	void ListaEntidade::removerEntidade(unsigned int posicao) {
+	void ListaEntidade::removerEntidade(unsigned int posicao)
+	{
 		objListaEntidade.remover((int)posicao);
 	}
 
-	unsigned int ListaEntidade::getTamanho() {
+	unsigned int ListaEntidade::getTamanho()
+	{
 		return objListaEntidade.getTamanho();
 	}
 
-	Entidades::Entidade* ListaEntidade::operator[](int posicao) {
+	Entidades::Entidade *ListaEntidade::operator[](int posicao)
+	{
 		return objListaEntidade.operator[](posicao);
 	}
 
-	void ListaEntidade::executar() {
-		Entidades::Entidade* aux = nullptr;
+	void ListaEntidade::executar()
+	{
+		Entidades::Entidade *aux = nullptr;
 		int tam = objListaEntidade.getTamanho();
 
-		for (int i = 0; i < tam; i++) {
+		for (int i = 0; i < tam; i++)
+		{
 			aux = objListaEntidade[i];
 
-            if(aux->getMorrer() == true){
-                if(aux->getDano() == 3){
-                    objListaEntidade[i+1]->setMorrer(true);
-                    objListaEntidade[i+1]->setDano(0);
-                }
-                continue;
-            }
+			if (aux->getMorreu() == true)
+			{
+				if (aux->getDano() == 30)
+				{
+					objListaEntidade[i + 1]->setMorreu(true);
+					objListaEntidade[i + 1]->setDano(0);
+				}
+				continue;
+			}
 
 			aux->executar();
 			aux->imprimir();
@@ -55,31 +67,41 @@ namespace Listas {
 		verificaMortos();
 	}
 
-	bool ListaEntidade::getTodosMortos(){
-        return todosMortos;
+	bool ListaEntidade::getTodosMortos()
+	{
+		return todosMortos;
 	}
 
-    void ListaEntidade::verificaMortos(){
-        Entidades::Entidade* aux = nullptr;
+	void ListaEntidade::verificaMortos()
+	{
+		Entidades::Entidade *aux = nullptr;
 		int tam = objListaEntidade.getTamanho();
 		todosMortos = true;
 
-		for(int i = 0; i<tam; i++){
-            aux = objListaEntidade[i];
+		for (int i = 0; i < tam; i++)
+		{
+			aux = objListaEntidade[i];
 
-            if(aux->getId() == 2 && aux->getMorrer() == true){
-                aux->setDano(0);
-            }
+			if (aux->getId() == 4)
+				continue;
 
-            if(aux->getMorrer() == false && aux->getId() != 1){
-                todosMortos = false;
-            }
+			if (aux->getId() == 2 && aux->getMorreu() == true)
+			{
+				aux->setDano(0);
+			}
 
-            if(todosMortos == false && aux->getId() == 1){
-                if(aux->getMorrer() == false){
-                    todosMortos = true;
-                }
-            }
+			if (aux->getMorreu() == false && aux->getId() != 1)
+			{
+				todosMortos = false;
+			}
+
+			if (todosMortos == false && aux->getId() == 1)
+			{
+				if (aux->getMorreu() == false)
+				{
+					todosMortos = true;
+				}
+			}
 		}
-    }
+	}
 }

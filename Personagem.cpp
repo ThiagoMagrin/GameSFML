@@ -1,10 +1,12 @@
 #include "Personagem.h"
 #include <SFML/Graphics.hpp>
 #include <cmath>
-namespace Entidades {
+namespace Entidades
+{
 
-    namespace Personagens {
-        Personagem::Personagem() : Entidade(), esquerda(true), direita(true), chao(true){}
+    namespace Personagens
+    {
+        Personagem::Personagem() : Entidade(), esquerda(true), direita(true) {}
 
         Personagem::~Personagem() {}
 
@@ -18,28 +20,22 @@ namespace Entidades {
             return velocidade;
         }
 
-
         void Personagem::pular(float pulo)
         {
             // Equacao de Torricelli
-            //v^2 = G*H
+            // v^2 = G*H
             pulo = sqrt(2.0f * GRAVIDADE * pulo);
             corpo.move(0.0f, -pulo * 10);
         }
 
-        void Personagem::setDireita(bool b){
+        void Personagem::setDireita(bool b)
+        {
             direita = b;
         }
 
-        void Personagem::setEsquerda(bool b){
-            esquerda = b;
-        }
-
-        void Personagem::danar(Entidade* outraEntidade)
+        void Personagem::setEsquerda(bool b)
         {
-            if (outraEntidade->getMorrer() == false) {
-                outraEntidade->setVida(-getDano());
-            }
+            esquerda = b;
         }
     }
 }

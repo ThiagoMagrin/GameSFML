@@ -2,23 +2,27 @@
 
 #include "Inimigo.h"
 
-namespace Entidades {
-    namespace Personagens {
-        namespace Inimigos{
-            class Esqueleto : public Inimigo {
+namespace Entidades
+{
+    namespace Personagens
+    {
+        namespace Inimigos
+        {
+            class Esqueleto : public Inimigo
+            {
             private:
                 float decomposicao;
+
             public:
                 Esqueleto();
                 ~Esqueleto();
 
-                void inicializar(Jogador* pJ, Jogador* pJ2);
+                void inicializar(Jogador *pJ, Jogador *pJ2);
                 void executar();
                 void apodrecer();
                 void movimentoEspecifico();
-                void tratarColisao(Entidade* outraEntidade);
+                void tratarColisao(Entidade *outraEntidade);
             };
         }
     }
 }
-
